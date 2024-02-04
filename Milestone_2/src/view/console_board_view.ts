@@ -1,5 +1,5 @@
 import Board from '../model/board';
-import BoardView from '../view/board_view';
+import BoardView from './board_view';
 
 class ConsoleBoardView extends BoardView {
 
