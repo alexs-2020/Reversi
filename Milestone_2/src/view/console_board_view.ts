@@ -7,7 +7,7 @@ class ConsoleBoardView extends BoardView {
   }
 
   display(): void {
-    //currently private
+    //currently public
     // Implementation for display method goes here
   }
 }

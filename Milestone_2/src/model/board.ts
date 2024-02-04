@@ -8,13 +8,13 @@ class Board {
   }
   updateCell(row: number, col: number, player: number) {
     /*
-    currently set as private method 
+    currently set aa public method 
     Method to update cell
     */
   }
   getCell(row: number, col: number) {
     /*
-    currently set as private method 
+    currently set as public method 
     Method to get cell
     */
   }

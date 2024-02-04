@@ -12,7 +12,7 @@ class GameRules {
     return false;
   }
 
-  public makeMove(move: Move): void {
+  makeMove(move: Move): void {
     /* Method to make a move
      */
     // Implementation goes here
