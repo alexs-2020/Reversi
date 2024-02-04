@@ -1,9 +1,10 @@
+import Move from "./move";
 class GameRules {
   constructor() {
     // Constructor logic goes here
   }
 
-  public isLegalMove(row: number, col: number): boolean {
+  isLegalMove(move: Move): boolean {
     /*
     Method to check if a move is legal
     */
@@ -11,7 +12,7 @@ class GameRules {
     return false;
   }
 
-  public makeMove(row: number, col: number): void {
+  public makeMove(move: Move): void {
     /* Method to make a move
      */
     // Implementation goes here

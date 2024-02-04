@@ -2,15 +2,17 @@ import Player from "./player";
 import Board from "./board";
 import PlayerSymbol from "./player_symbol";
 import GameRules from "./game_rules";
+import Move from "./move";
 class Game {
   /*
-    The class attributes can be changed from public to private based off needs
+    The class attributes can be changed from public to private curren
     */
   private curr_player: Player;
-  public player1: Player;
-  public player2: Player;
-  public board: Board;
-  public rules: GameRules;
+  private player1: Player;
+  private player2: Player;
+  private board: Board;
+  private rules: GameRules;
+  private winner: Player | null;
 
   constructor(size: number, rules: GameRules) {
     this.player1 = new Player(PlayerSymbol.X);
@@ -18,29 +20,35 @@ class Game {
     this.board = new Board(size);
     this.curr_player = this.player1;
     this.rules = rules;
+    this.winner = null;
   }
 
-  isLegalMove(row: number, col: number): Boolean {
+  isLegalMove(move: Move): Boolean {
     /*
-    currently set as private method 
+    currently set as public method 
     Method to check if a move is legal
     */
     // Implementation goes here
-    return this.rules.isLegalMove(row, col);
+    return this.rules.isLegalMove(move);
   }
 
-  makeMove(row: number, col: number): void {
+  makeMove(move: Move): void {
     /*
-     currently set as private method 
+     currently set as publib method 
      Method to make a move
      */
     // Implementation goes here
   }
-  isGameOver() {
+  getWinner(): Player | null {
+    return this.winner;
+  }
+  isGameOver(): boolean {
     /*
-     currently set as private method 
+     currently set as public method 
      Method to check if game is over 
      */
+    return false;
   }
+  switchPlayers() {}
 }
 export default Game;

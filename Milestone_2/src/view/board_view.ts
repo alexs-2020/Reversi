@@ -1,13 +1,13 @@
-import Board from '../model/board';
+import Board from "../model/board";
 
 abstract class BoardView {
-    board: Board;
+  board: Board;
 
-    constructor(board: Board) {
-        this.board = board;
-    }
+  constructor(board: Board) {
+    this.board = board;
+  }
 
-    abstract display(): void;
+  abstract display(): void;
 }
 
 export default BoardView;
