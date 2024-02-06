@@ -13,6 +13,7 @@ class GameController {
 
   startGame(): void {
     // Runs the main loop of the game
+    this.view.displayBoard();
     while (true) {
       let move: Move = this.view.getMove();
 

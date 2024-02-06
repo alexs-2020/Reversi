@@ -1,9 +1,13 @@
 enum PlayerSymbol {
-  /*
-  enums for player symbol 
-  */
-  X = 0,
-  O = 1,
+  Empty = 0,
+  X = 1,
+  O = 2
 }
+
+export const symbolToStr: Record<PlayerSymbol, string> = {
+  [PlayerSymbol.Empty]: '.',
+  [PlayerSymbol.X]: 'X',
+  [PlayerSymbol.O]: 'O'
+};
 
 export default PlayerSymbol;

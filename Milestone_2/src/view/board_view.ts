@@ -6,6 +6,7 @@ abstract class BoardView {
   constructor(board: Board) {
     this.board = board;
   }
+  
 
   abstract display(): void;
 }
