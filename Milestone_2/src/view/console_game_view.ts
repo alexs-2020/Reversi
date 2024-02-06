@@ -4,9 +4,9 @@ import Move from "../model/move";
 import Player from "../model/player";
 
 class ConsoleGameView extends GameView {
-  constructor(board: any) {
-    super(new ConsoleBoardView(board));
-  }
+  // constructor(board: any) {
+  //   super(new ConsoleBoardView(board));
+  // }
 
   showCurrPlayer(): void {
     // Implementation for showCurrPlayer method goes here

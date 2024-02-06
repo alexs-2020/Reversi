@@ -12,6 +12,10 @@ class Board {
     this.grid = new Array(size).fill(0).map(() => new Array(size).fill(0));
   }
 
+  get getGrid(): number[][] {
+    return this.grid
+  }
+
   printGrid(): void {
     for (let i = 0; i < this.size; i++) {
       console.log(this.grid[i].join(" "));
