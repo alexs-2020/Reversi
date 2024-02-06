@@ -14,7 +14,6 @@ class Game {
    rules: GameRules;
    winner: Player | null; 
 
-
   constructor(size: number, rules: GameRules) {
     this.player1 = new Player(PlayerSymbol.X);
     this.player2 = new Player(PlayerSymbol.O);

@@ -7,9 +7,8 @@ class GameRules {
   isLegalMove(move: Move): boolean {
     /*
     Method to check if a move is legal
-    If the move is legal, there is nothing placed there 
-    */
-    
+        */
+    // Implementation goes here
     return false;
   }
 

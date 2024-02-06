@@ -8,6 +8,7 @@ class Board {
 
   constructor(size: number = 3) {
     this.size = size;
+    //creating a board when board object is created 
     this.board = Array.from({ length: size }, () =>
     Array.from({ length: size }, () => PlayerSymbol.Empty));
     const mid_length= size/2;
