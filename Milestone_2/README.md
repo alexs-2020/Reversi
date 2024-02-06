@@ -26,7 +26,12 @@ To start working with the project, follow these steps:
    ```
    yarn install
    ```
-5. **Running the code :**
+5. **Install Node Modules:**
+   Inside the project directory, run the following command to install all necessary node modules:
+   ```
+   yarn add all 
+   ```
+6. **Running the code :**
    ```
    yarn start
    ```

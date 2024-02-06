@@ -4,6 +4,7 @@ import Move from "../model/move";
 import Player from "../model/player";
 import Board from "../model/board";
 import * as readlineSync from 'readline-sync';
+import { symbolToStr } from "../model/player_symbol";
 
 class ConsoleGameView extends GameView {
   constructor(board: Board) {
@@ -14,19 +15,19 @@ class ConsoleGameView extends GameView {
     // Implementation for showCurrPlayer method goes here
   }
 
-  getMove(): Move {
-    const moveInput: string = readlineSync.question('Enter your move (row,col): ') || '';
+  getMove(player:Player): Move {
+    const moveInput: string = readlineSync.question(`Player ${symbolToStr[player.symbol]}, Enter your move (row,col): `) || '';
     const values: string[] = moveInput.split(',');
     if (values.length !== 2) {
       console.log('Invalid input. Please enter a valid move (row, col).');
-      return this.getMove(); // Retry input
+      return this.getMove(player); // Retry input
     }
     const row: number = parseInt(values[0], 10);
     const col: number = parseInt(values[1], 10);
     
     if (isNaN(row) || isNaN(col)) {
     console.log('Invalid input. Please enter numeric values for row and col.');
-    return this.getMove(); // Retry input
+    return this.getMove(player); // Retry input
 }
   
   

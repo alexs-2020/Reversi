@@ -1,7 +1,7 @@
 import Game from "../model/game";
 import ConsoleGameView from "../view/console_game_view";
 import Move from "../model/move";
-
+import Player from "../model/player";
 class GameController {
   model: Game;
   view: ConsoleGameView;
@@ -15,11 +15,11 @@ class GameController {
     // Runs the main loop of the game
     this.view.displayBoard();
     while (true) {
-      let move: Move = this.view.getMove();
+      let move: Move = this.view.getMove(this.model.curr_player);
 
       while (!this.model.isLegalMove(move)) {
         this.view.showIllegalMove(move);
-        move = this.view.getMove();
+        move = this.view.getMove(this.model.curr_player);
       }
 
       this.model.makeMove(move);

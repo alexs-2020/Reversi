@@ -24,31 +24,23 @@ class Game {
   }
 
   isLegalMove(move:Move): Boolean {
-    /*
-    Method to check if a move is legal
-    */
-    // Implementation goes here
+    
     return this.rules.isLegalMove(move);
 
   }
 
   makeMove(move:Move): void {
-    /*
-     Method to make a move
-     */
-    // Implementation goes here
+   this.rules.makeMove(move, this.curr_player)
   }
   getWinner():  Player | null{
     return this.winner; 
   }
   isGameOver(): boolean {
-    /*
-     Method to check if game is over 
-     */
-    return false
+    return this.rules.isGameOver()
     
   }
   switchPlayers(): void{
+    this.curr_player = (this.curr_player === this.player1) ? this.player2 : this.player1;
 
   }
 
