@@ -21,36 +21,19 @@ class GameController {
     constructor(model: Game, view: GameView) {
       this.model = model;
       this.view = view;
-      //this.board = board;
     }
 
 
-  // startGame(): void {
     async startGame() {
     // Runs the main loop of the game
-    console.log(this.model.isGameOver())
+      while (!this.model.isGameOver()) {      
+        this.model.makeMove(await this.view.getMove());
+        this.view.displayBoard()
     
-
-    while (!this.model.isGameOver()) {
-      // const move = await this.view.getMove();
-      // console.log(move);
-      
-      this.model.makeMove(await this.view.getMove());
-      this.view.displayBoard()
-      this.model.makeMove(await this.view.getMove());
-      this.view.displayBoard()
-      // this.model.
 
       //maybe set board size
       // setup board
       //            this.model.makeMove(this.view.getMove());
-
-
-    //  this.model.isGameOver() maybe
-      // this.view.displayBoard(this.model.);
-
-      // this.model.makeMove();
-      // this.model.makeMove();
 
 
       //first player start/place piece

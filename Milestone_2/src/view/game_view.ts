@@ -25,10 +25,7 @@ class GameView {
   displayBoard(): void {
     this.board.printGrid()
   }
-
-
-
-   getMove(): Promise<Move> {
+  getMove(): Promise<Move> {
     return new Promise((resolve) => {
       const rl = readline.createInterface({
         input: process.stdin,
@@ -57,17 +54,6 @@ class GameView {
       // const col: number = parseInt(values[1], 10);
       // return new Move(row, col);
     }
-
-  // async function getUserShots(): number[] {
-  
-
-  // }
- 
-
-
-
-
-
 }
 
 export default GameView;
