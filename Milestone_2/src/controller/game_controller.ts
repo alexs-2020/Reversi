@@ -14,6 +14,14 @@ class GameController {
   startGame(): void {
     // Runs the main loop of the game
     while (true) {
+      
+      //maybe set board size
+      // setup board
+      //first player start/place piece
+          //if not valid place again
+      //check end game
+      //next player
+
       let move: Move = this.view.getMove();
 
       while (!this.model.isLegalMove(move)) {

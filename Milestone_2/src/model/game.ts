@@ -29,6 +29,7 @@ class Game {
     Method to check if a move is legal
     */
     // Implementation goes here
+
     return this.rules.isLegalMove(move);
   }
 
