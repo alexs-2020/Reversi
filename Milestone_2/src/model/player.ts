@@ -1,7 +1,7 @@
 import PlayerSymbol from "./player_symbol";
 class Player {
-  private symbol: PlayerSymbol;
-  private score: number;
+  symbol: PlayerSymbol;
+  score: number;
 
   constructor(symbol: PlayerSymbol) {
     this.symbol = symbol;

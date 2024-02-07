@@ -1,16 +1,35 @@
 {
-  "name": "Milesstone-2",
+  "name": "Milestone-2",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "type": "commonjs",
   "dependencies": {
     "enum": "^3.0.4",
     "enum-values": "^1.2.1",
     "prettier": "^3.2.4",
+    "readline-sync": "^1.4.10",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "scripts": {
-   "prettier":  "prettier --write \"src/**/*.+(ts|tsx|js|jsx)\""
-
+    "prettier": "prettier --write \"src/**/*.+(ts|tsx|js|jsx)\"",
+    "start": "ts-node src/app.ts"
+  },
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "devDependencies": {
+    "@types/readline-sync": "^1.4.8"
   }
 }

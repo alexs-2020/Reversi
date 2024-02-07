@@ -7,48 +7,42 @@ class Game {
   /*
     The class attributes can be changed from public to private curren
     */
-  private curr_player: Player;
-  private player1: Player;
-  private player2: Player;
-  private board: Board;
-  private rules: GameRules;
-  private winner: Player | null;
+   curr_player: Player;
+   player1: Player;
+   player2: Player;
+   board: Board;
+   rules: GameRules;
+   winner: Player | null; 
 
-  constructor(size: number, rules: GameRules) {
+  constructor(size: number) {
     this.player1 = new Player(PlayerSymbol.X);
     this.player2 = new Player(PlayerSymbol.O);
     this.board = new Board(size);
     this.curr_player = this.player1;
-    this.rules = rules;
-    this.winner = null;
+    this.rules = new GameRules(this.board);
+    this.winner =null; 
   }
 
-  isLegalMove(move: Move): Boolean {
-    /*
-    currently set as public method 
-    Method to check if a move is legal
-    */
-    // Implementation goes here
+  isLegalMove(move:Move): Boolean {
+    
     return this.rules.isLegalMove(move);
+
   }
 
-  makeMove(move: Move): void {
-    /*
-     currently set as publib method 
-     Method to make a move
-     */
-    // Implementation goes here
+  makeMove(move:Move): void {
+   this.rules.makeMove(move, this.curr_player)
   }
-  getWinner(): Player | null {
-    return this.winner;
+  getWinner():  Player | null{
+    return this.winner; 
   }
   isGameOver(): boolean {
-    /*
-     currently set as public method 
-     Method to check if game is over 
-     */
-    return false;
+    return this.rules.isGameOver()
+    
   }
-  switchPlayers() {}
+  switchPlayers(): void{
+    this.curr_player = (this.curr_player === this.player1) ? this.player2 : this.player1;
+
+  }
+
 }
 export default Game;

@@ -1,4 +1,5 @@
 import Move from "../model/move";
+import Player from "../model/player";
 import BoardView from "./board_view";
 
 abstract class GameView {
@@ -10,7 +11,7 @@ abstract class GameView {
 
   abstract showCurrPlayer(): void;
 
-  abstract getMove(): void;
+  abstract getMove(player:Player): void;
 
   abstract showIllegalMove(move: Move): void;
 
