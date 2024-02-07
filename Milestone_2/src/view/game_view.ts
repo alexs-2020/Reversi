@@ -2,7 +2,9 @@ import Move from "../model/move";
 import BoardView from "./board_view";
 import * as readline from 'readline';
 import Board from "../model/board";
-import * as readlineSync from 'readline-sync';
+
+
+
 class GameView {
   // boardView: BoardView;
     public board: Board
@@ -25,6 +27,8 @@ class GameView {
   displayBoard(): void {
     this.board.printGrid()
   }
+
+
   getMove(): Promise<Move> {
     return new Promise((resolve) => {
       const rl = readline.createInterface({

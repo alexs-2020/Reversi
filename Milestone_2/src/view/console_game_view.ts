@@ -12,13 +12,13 @@ class ConsoleGameView extends GameView {
     // Implementation for showCurrPlayer method goes here
   }
 
-  getMove(): Move {
-    const move: string = prompt("Enter your move (row, col):") || "";
-    const values: string[] = move.split(",");
-    const row: number = parseInt(values[0], 10);
-    const col: number = parseInt(values[1], 10);
-    return new Move(row, col);
-  }
+  // getMove(): Move {
+  //   const move: string = prompt("Enter your move (row, col):") || "";
+  //   const values: string[] = move.split(",");
+  //   const row: number = parseInt(values[0], 10);
+  //   const col: number = parseInt(values[1], 10);
+  //   return new Move(row, col);
+  // }
 
   showIllegalMove(move: Move): void {
     // Implementation for showIllegalMove method goes here

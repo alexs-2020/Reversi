@@ -3,6 +3,7 @@ import Board from "./board";
 import PlayerSymbol from "./player_symbol";
 import GameRules from "./game_rules";
 import Move from "./move";
+import { moveEmitHelpers } from "typescript";
 
 
 class Game {
@@ -29,12 +30,12 @@ class Game {
   }
 
 
-  isLegalMove(move: Move, player: Number): Boolean {
+  isLegalMove(move: Move, player: number): Boolean {
     /*
     currently set as public method 
     Method to check if a move is legal
     */
-    //possible directions
+    //all possible directions
     const directions: Move[] = [
       { row: -1, column: 0 }, // Up
       { row: 1, column: 0 },  // Down
@@ -45,61 +46,59 @@ class Game {
       { row: 1, column: -1 }, // Down-left
       { row: 1, column: 1 },  // Down-right
     ];
-    // const { row, col } = position;
+  
 
-    directions.forEach(element => {
+    for (const element of directions) {
+      //check if even valid on board - skip iteration
+      if(move.row + element.row < 0 || move.row + element.row > this.board.getGrid.length - 1 ||  move.column + element.column < 0 || move.column + element.column > this.board.getGrid.length - 1){
+          continue
+      }
+      //if a zero is found skip iteration
       if(this.board.getValue(move.row + element.row, move.column + element.column) == 0){
-          //continue search / skip
+          continue
       } else if(this.board.getValue(move.row + element.row, move.column + element.column) !== player){
-          // go in this directions 
-          //only return true if valid direction, else continue iteration
+          // if an opposite player checker is found continue in that direction
+          //only return true if same player checker found, else continue iteration
           if (this.checkDirection(move, element.row, element.column, player)) {
             return true;
           }  
-    });
-    return false
-
-    // //must place in empty spot
-    // if(this.board.getValue(move.row, move.column) !== 0){
-    //   return false
-    // } else if(move.row >= size || move.column >= size)[ //must place within range
-    //   return false
-    // ]
-
-    // const captured: Position[] = [];
-
-    // for(){
-    //   move.column + 1
-    // }
-
-
-    // // Implementation goes here
-
-    // return this.rules.isLegalMove(move);
-  }
-
-  //move in the direction untill same playe is found
-  checkDirection(move: Move, row: number, col: number, player: Number): Boolean {
-    while (row >= 0 && row < this.board.getGrid.length && col >= 0 && col < this.board.getGrid[0].length) {
-      move.row += row; 
-      move.column += col;
-      if(this.board.getValue(row, col) == 0 ){
-        return false
-      } else if(this.board.getValue(row, col) == player {
-        return true //same player found
-      }
+        }
     }
     return false
   }
 
+  //move in the direction untill same playe is found
+  checkDirection(move: Move, row: number, col: number, player: number): Boolean {
+    //temp variables for search
+    let tempRow = move.row + (2*row); 
+    let tempCol = move.column + (2*col);
+    while (tempRow >= 0 && tempRow < this.board.getGrid.length && tempCol >= 0 && tempCol < this.board.getGrid[0].length) {    
+      if(this.board.getValue(tempRow, tempCol) == 0 ){
+        return false
+      } else if(this.board.getValue(tempRow, tempCol) == player){
+        return true //same player found
+      }
+      tempRow += row; 
+      tempCol += col;
+    }
+    return false
+  }
+
+//TEMP DISPLAY BOARD
 
   makeMove(move: Move): void {
     /*
      currently set as publib method 
      Method to make a move
      */
-    this.player = (this.player === 2) ? 1 : 2; //switch player
-    this.board.setValue(move.column, move.row, this.player);
+    if(this.isLegalMove(move, this.player)){
+      this.board.setValue(move.row, move.column, this.player);
+      this.player = (this.player === 2) ? 1 : 2; //if valid placement switch player
+    }
+    else{
+      console.log("not legal try again")
+    }
+   
   }
 
 

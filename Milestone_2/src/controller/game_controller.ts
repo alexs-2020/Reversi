@@ -26,7 +26,12 @@ class GameController {
 
     async startGame() {
     // Runs the main loop of the game
-      while (!this.model.isGameOver()) {      
+
+      // this.model.makeMove(new Move(1,1))
+      // // this.model.makeMove(new Move(2,2))
+      this.view.displayBoard() 
+      while (!this.model.isGameOver()) {   
+           
         this.model.makeMove(await this.view.getMove());
         this.view.displayBoard()
     
