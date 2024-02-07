@@ -18,18 +18,14 @@ import * as readlineSync from 'readline-sync';
 //     return size;
 //   }
 
-// Create an instance of GameRules
-const rules = new GameRules();
+
 
 // Get the board size from the user
 const boardSize = 8;
 
-// Create an instance of Board with the user-provided size
-const board = new Board(boardSize);
-
 // Create instances of Game and ConsoleGameView
-const game = new Game(boardSize, rules);
-const consoleGameView = new ConsoleGameView(board);
+const game = new Game(boardSize);
+const consoleGameView = new ConsoleGameView(game.board);
 
 // Create an instance of GameController
 const gameController = new GameController(game, consoleGameView);

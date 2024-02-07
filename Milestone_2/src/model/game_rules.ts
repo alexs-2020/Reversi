@@ -1,8 +1,11 @@
+import Board from "./board";
 import Move from "./move";
 import Player from "./player";
 class GameRules {
-  constructor() {
+  board: Board
+  constructor(board: Board) {
     // Constructor logic goes here
+    this.board = board
   }
 
   isLegalMove(move: Move): boolean {
@@ -19,7 +22,8 @@ class GameRules {
     // Implementation goes here
   }
   isGameOver():boolean{
-    return false; 
+    
+    return false;
   }
 }
 export default GameRules;

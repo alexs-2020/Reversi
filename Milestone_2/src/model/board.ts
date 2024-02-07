@@ -14,9 +14,9 @@ class Board {
     const mid_length= size/2;
 
     this.board[mid_length-1][mid_length-1] = PlayerSymbol.X;
-    this.board[mid_length][mid_length] = PlayerSymbol.X
-    this.board[mid_length-1][mid_length] = PlayerSymbol.O
-    this.board[mid_length][mid_length -1] = PlayerSymbol.O
+    this.board[mid_length][mid_length] = PlayerSymbol.X;
+    this.board[mid_length-1][mid_length] = PlayerSymbol.O;
+    this.board[mid_length][mid_length -1] = PlayerSymbol.O;
 
   }
 
@@ -31,6 +31,16 @@ class Board {
     currently set as public method 
     Method to get cell
     */
+  }
+  isboardFull():boolean{
+    for (let i = 0; i < this.size; i++) {
+      for (let j = 0; j <this.size; j++) {
+        if (this.board[i][j] === PlayerSymbol.Empty) {
+          return false; // Early return if an empty cell is found
+        }
+      }
+    }
+    return true; 
   }
 }
 export default Board;

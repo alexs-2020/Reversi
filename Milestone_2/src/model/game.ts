@@ -14,12 +14,12 @@ class Game {
    rules: GameRules;
    winner: Player | null; 
 
-  constructor(size: number, rules: GameRules) {
+  constructor(size: number) {
     this.player1 = new Player(PlayerSymbol.X);
     this.player2 = new Player(PlayerSymbol.O);
     this.board = new Board(size);
     this.curr_player = this.player1;
-    this.rules = rules;
+    this.rules = new GameRules(this.board);
     this.winner =null; 
   }
 
