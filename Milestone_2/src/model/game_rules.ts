@@ -51,7 +51,6 @@ class GameRules {
          positions.push({ row: curr_mv[0], col: curr_mv[1] });
          // Adjust the condition to check against the symbol
         if (this.board.board[curr_mv[0]][curr_mv[1]] == symbol) {
-             console.log('positions to flip:',positions );
              this.valid_directions +=1
             return positions;
 
