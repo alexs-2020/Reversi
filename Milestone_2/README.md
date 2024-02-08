@@ -82,7 +82,12 @@ git add .         # add all changes
 ### 6. Pull from Remote Repository
 
 ```bash
-git pull 
+git pull origin branch_name 
+```
+### 6. Pull from Remote main 
+
+```bash
+git pull origin main 
 ```
 
 ### 7. Push to Remote Repository
