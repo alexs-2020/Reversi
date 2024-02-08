@@ -13,10 +13,10 @@ class Board {
     Array.from({ length: size }, () => PlayerSymbol.Empty));
     const mid_length= size/2;
 
-    this.board[mid_length-1][mid_length-1] = PlayerSymbol.X;
-    this.board[mid_length][mid_length] = PlayerSymbol.X;
-    this.board[mid_length-1][mid_length] = PlayerSymbol.O;
-    this.board[mid_length][mid_length -1] = PlayerSymbol.O;
+    this.board[mid_length-1][mid_length-1] = PlayerSymbol.O;
+    this.board[mid_length][mid_length] = PlayerSymbol.O;
+    this.board[mid_length-1][mid_length] = PlayerSymbol.X;
+    this.board[mid_length][mid_length -1] = PlayerSymbol.X;
 
   }
 
