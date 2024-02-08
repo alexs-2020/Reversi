@@ -25,7 +25,7 @@ class Game {
 
   isLegalMove(move:Move): Boolean {
     
-    return this.rules.isLegalMove(move);
+    return this.rules.isLegalMove(move, this.curr_player);
 
   }
 
