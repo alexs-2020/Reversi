@@ -5,17 +5,20 @@ import Player from "./player";
 import PlayerSymbol from "./player_symbol";
 class GameRules {
   board: Board
+    valid_directions:number
   constructor(board: Board) {
     // Constructor logic goes here
     this.board = board
+      this.valid_directions=0
   }
   isLegalMove(move: Move, curr_player: Player): boolean {
-    return this.getLegalMove(move, curr_player).length > 0;
+    return this.getLegalMove(move, curr_player).length > this.valid_directions;
 }
 
   getLegalMove(move: Move, curr_player: Player): { row: number, col: number }[] {
-    // Find the directions it moves
+    // Find the directions it move
     let positions: { row: number, col: number }[] = []; // Initialize positions as an empty array
+      this.valid_directions=0
 
     const directions: { row: number, col: number }[] = [
         { row: -1, col: 0 },   // Up
@@ -45,14 +48,13 @@ class GameRules {
         curr_mv[1] >= 0 && curr_mv[1] < this.board.size &&
         this.board.board[curr_mv[0]][curr_mv[1]] !== PlayerSymbol.Empty
     ) {
-        positions.push({ row: curr_mv[0], col: curr_mv[1] });
-        console.log(curr_mv, direction);
-        console.log('\n'); // Add a newline after printing the value of positions
-
-        // Adjust the condition to check against the symbol
-        if (this.board.board[curr_mv[0]][curr_mv[1]] !== symbol) {
+         positions.push({ row: curr_mv[0], col: curr_mv[1] });
+         // Adjust the condition to check against the symbol
+        if (this.board.board[curr_mv[0]][curr_mv[1]] == symbol) {
              console.log('positions to flip:',positions );
+             this.valid_directions +=1
             return positions;
+
         }
 
         // Update curr_mv for the next iteration
