@@ -22,8 +22,8 @@ class ConsoleGameView extends GameView {
       console.log('Invalid input. Please enter a valid move (row, col).');
       return this.getMove(player); // Retry input
     }
-    const row: number = parseInt(values[0], 10);
-    const col: number = parseInt(values[1], 10);
+    const row: number = parseInt(values[0], 10)-1;
+    const col: number = parseInt(values[1], 10)-1;
     
     if (isNaN(row) || isNaN(col)) {
     console.log('Invalid input. Please enter numeric values for row and col.');
