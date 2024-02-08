@@ -131,8 +131,8 @@ git stash -m "your stash message"
 ```bash
 git stash list
 ```
-### 15 apply git stash 
+### 15 apply git stash based off the stash number 
 ``` bash
-git stash apply stash@{0}
+git stash apply <stash@{#}> 
 ```
 Happy coding!

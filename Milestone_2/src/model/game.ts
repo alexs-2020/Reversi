@@ -15,8 +15,8 @@ class Game {
    winner: Player | null; 
 
   constructor(size: number) {
-    this.player1 = new Player(PlayerSymbol.X);
-    this.player2 = new Player(PlayerSymbol.O);
+    this.player1 = new Player(PlayerSymbol.Black);
+    this.player2 = new Player(PlayerSymbol.White);
     this.board = new Board(size);
     this.curr_player = this.player1;
     this.rules = new GameRules(this.board);
@@ -25,7 +25,7 @@ class Game {
 
   isLegalMove(move:Move): Boolean {
     
-    return this.rules.isLegalMove(move);
+    return this.rules.isLegalMove(move, this.curr_player);
 
   }
 
