@@ -4,19 +4,24 @@ import Move from "../model/move";
 import Player from "../model/player";
 import Board from "../model/board";
 import * as readlineSync from 'readline-sync';
-import { symbolToStr } from "../model/player_symbol";
+import PlayerSymbol, { symbolToStr } from "../model/player_symbol";
 
 class ConsoleGameView extends GameView {
   constructor(board: Board) {
     super(new ConsoleBoardView(board));
   }
 
-  showCurrPlayer(): void {
-    // Implementation for showCurrPlayer method goes here
-  }
+ showPlayerScores(player1: Player, player2:Player): void {
+  console.log(`\n \nPlayer ${symbolToStr[player1.symbol]} current score: ${player1.getScore()}`);
+  console.log(`Player ${symbolToStr[player2.symbol] } current score: ${player2.getScore()}`);
+}
+showCurrentPlayer(player:Player):void{
+     console.log(`current player: Player ${symbolToStr[player.symbol]}`);
+
+}
 
   getMove(player:Player): Move {
-    const moveInput: string = readlineSync.question(`Player ${symbolToStr[player.symbol]}, Enter your move (row,col): `) || '';
+    const moveInput: string = readlineSync.question(`\n \nPlayer ${symbolToStr[player.symbol]}, Enter your move (row,col): `) || '';
     const values: string[] = moveInput.split(',');
     if (values.length !== 2) {
       console.log('Invalid input. Please enter a valid move (row, col).');
@@ -33,16 +38,21 @@ class ConsoleGameView extends GameView {
   
     return new Move(row, col);
   }
-
-  showIllegalMove(move: Move): void {
-    // Implementation for showIllegalMove method goes here
-  }
-
+  showPossibleMove(moves: Move[]): void {
+    console.log("\nPossible Moves:");
+    moves.forEach((move, index) => {
+      console.log(`Move ${index + 1}: Row ${move.row+1}, Column ${move.column+1}`);
+    });}
   showWinner(player: Player): void {
-    // Implementation for showWinner method goes here
+    console.log(`Player ${symbolToStr[player.symbol]} is the winner!`);
   }
-  showDraw(): void {
-    //implementation to show draw
+
+    showIllegalMove(move: Move): void {
+    console.log(`Illegal Move: Row ${move.row+1}, Column ${move.column+1}`);
+  }
+
+ showDraw(): void {
+    console.log("It's a draw!");
   }
 }
 
