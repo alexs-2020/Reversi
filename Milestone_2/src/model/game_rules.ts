@@ -77,6 +77,23 @@ class GameRules {
        
     }
   
+
+
+//check if player has any valid playable moves
+hasValidPlacements(player: Player): boolean {
+  // Iterate through all positions on the board
+  for (let row = 0; row < this.board.board.length; row++) {
+      for (let col = 0; col < this.board.board[0].length; col++) {
+          if (this.isLegalMove(new Move(row, col), player)) {
+              return true; // Found a valid placement
+          }
+      }
+  }
+  // No valid placements found
+  return false;
+}
+
+    
   isGameOver():boolean{
     
     return false;
