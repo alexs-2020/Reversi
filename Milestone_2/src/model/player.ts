@@ -1,18 +1,21 @@
 import PlayerSymbol from "./player_symbol";
 class Player {
   symbol: PlayerSymbol;
-  score: number;
+  private score: number;
 
   constructor(symbol: PlayerSymbol) {
     this.symbol = symbol;
-    this.score = 0;
+    this.score = 2;
   }
 
   updateScore(newScore: number): void {
     /*
     Method to update score
     */
-    this.score = newScore;
+    this.score += newScore;
+  }
+  getScore():number{
+    return this.score
   }
 }
 

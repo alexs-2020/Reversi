@@ -15,26 +15,32 @@ class GameController {
     // Runs the main loop of the game
     this.view.displayBoard();
     while (true) {
+      let ValidPlacements: { move: Move, valid_direction:number, positions: { row: number, col: number }[] }[]= this.model.getValidPlacements()
+      let ValidMoves: Move[] = this.model.getValidPlacements().map(validPlacement => validPlacement.move);
+      this.view.showCurrentPlayer(this.model.curr_player)
+      this.view.showPossibleMove(ValidMoves);
+      this.view.showPlayerScores(this.model.player1, this.model.player2)
+
       let move: Move = this.view.getMove(this.model.curr_player);
-
-      while (!this.model.isLegalMove(move)) {
-        this.view.showIllegalMove(move);
-        move = this.view.getMove(this.model.curr_player);
-      }
-
-      this.model.makeMove(move);
-      this.view.displayBoard();
-
-      if (this.model.isGameOver()) {
-        const winner = this.model.getWinner();
-        if (!winner) {
-          this.view.showDraw();
-        } else {
-          this.view.showWinner(winner);
+      if (ValidPlacements.length>0) {
+        while (!this.model.isLegalMove(move, ValidPlacements)) {
+          this.view.showIllegalMove(move);
+          move = this.view.getMove(this.model.curr_player);
         }
-      }
-
-      this.model.switchPlayers();
+          this.model.makeMove(move);
+          this.view.displayBoard();
+          if (this.model.isGameOver()) {
+              this.view.showWinner(this.model.curr_player);
+              break
+            }
+          this.model.switchPlayers();
+        }
+      else{
+        if (this.model.isGameDrawn()){
+          this.view.showDraw();
+          break
+        }
+         this.model.switchPlayers();}
     }
   }
 }
