@@ -8,7 +8,7 @@ To start working with the project, follow these steps:
 
 1. **Clone the Repository:**
    ```
-   git clone [<repository-url>](https://github.com/alexs-2020/Reversi.git)
+   git clone https://github.com/alexs-2020/Reversi.git
    cd reversi-game/Milestone_2
    ```
 
