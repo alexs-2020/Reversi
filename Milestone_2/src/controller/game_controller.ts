@@ -2,47 +2,80 @@ import Game from "../model/game";
 import ConsoleGameView from "../view/console_game_view";
 import Move from "../model/move";
 import Player from "../model/player";
+/**
+ * GameController class controls the flow of the game by interacting with the model and view.
+ * It initializes with a Game model and a ConsoleGameView, then starts the main game loop.
+ */
 class GameController {
-  model: Game;
-  view: ConsoleGameView;
+  model: Game;                // The game model
+  view: ConsoleGameView;      // The console game view
 
+  /**
+   * Constructor for GameController class.
+   * @param {Game} model - The Game model instance.
+   * @param {ConsoleGameView} view - The ConsoleGameView instance for rendering the game.
+   */
   constructor(model: Game, view: ConsoleGameView) {
     this.model = model;
     this.view = view;
   }
 
+  /**
+   * Initiates the main loop of the game.
+   */
   startGame(): void {
-    // Runs the main loop of the game
+    // Display initial game board
     this.view.displayBoard();
-    while (true) {
-      let ValidPlacements: { move: Move, valid_direction:number, positions: { row: number, col: number }[] }[]= this.model.getValidPlacements()
-      let ValidMoves: Move[] = this.model.getValidPlacements().map(validPlacement => validPlacement.move);
-      this.view.showCurrentPlayer(this.model.curr_player)
-      this.view.showPossibleMove(ValidMoves);
-      this.view.showPlayerScores(this.model.player1, this.model.player2)
 
-      let move: Move = this.view.getMove(this.model.curr_player);
-      if (ValidPlacements.length>0) {
-        while (!this.model.isLegalMove(move, ValidPlacements)) {
+    // Main game loop
+    while (true) {
+      // Retrieve valid placements and moves for the current player
+      let validPlacements: {
+        move: Move,
+        valid_direction: number,
+        positions: { row: number, col: number }[]
+      }[] = this.model.getValidPlacements();
+      let validMoves: Move[] = validPlacements.map(validPlacement => validPlacement.move);
+
+      // Display current player, possible moves, and player scores
+      this.view.showCurrentPlayer(this.model.curr_player);
+      this.view.showPossibleMove(validMoves);
+      this.view.showPlayerScores(this.model.player1, this.model.player2);
+
+
+      // Validate the move until a legal move is obtained
+      if (validPlacements.length > 0) {
+        // Get move from the current player
+        let move: Move = this.view.getMove(this.model.curr_player);
+        while (!this.model.isLegalMove(move, validPlacements)) {
           this.view.showIllegalMove(move);
           move = this.view.getMove(this.model.curr_player);
         }
-          this.model.makeMove(move);
-          this.view.displayBoard();
-          if (this.model.isGameOver()) {
-              this.view.showWinner(this.model.curr_player);
-              break
-            }
-          this.model.switchPlayers();
+
+        // Make the validated move, display the updated board
+        this.model.makeMove(move);
+        this.view.displayBoard();
+
+        // Check if the game is over
+        if (this.model.isGameOver()) {
+          this.view.showWinner(this.model.getWinner());
+          break;
         }
-      else{
-        if (this.model.isGameDrawn()){
-          this.view.showDraw();
-          break
+
+        // Switch players for the next turn
+        this.model.switchPlayers();
+      } else {
+        // Handle draw scenario and switch players
+        if (this.model.isGameDrawn()) {
+          this.view.showNoMovesLeft();
+          this.view.showWinner(this.model.getWinner());
+          break;
         }
-         this.model.switchPlayers();}
+        this.model.switchPlayers();
+      }
     }
   }
 }
+
 
 export default GameController;

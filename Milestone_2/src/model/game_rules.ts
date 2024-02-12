@@ -122,11 +122,12 @@ isLegalMove(move: Move, valid_placement: { move: Move,valid_direction:number,  p
 
 
     isGameOver(): boolean {
-        return this.board.isboardFull();
+        return this.board.isBoardFull();
     }
 
     isGameDrawn(other_player: Player): boolean {
-        return this.getValidPlacements(other_player).length > 0
+        return this.getValidPlacements(other_player).length <= 0
+
     }
 }
 export default GameRules;
