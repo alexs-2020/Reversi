@@ -51,8 +51,8 @@ showCurrentPlayer(player:Player):void{
     console.log(`Illegal Move: Row ${move.row+1}, Column ${move.column+1}`);
   }
 
- showDraw(): void {
-    console.log("It's a draw!");
+ showNoMovesLeft(): void {
+    console.log("There are no moves left");
   }
 }
 
