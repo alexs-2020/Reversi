@@ -1,0 +1,66 @@
+body {
+  background-color: #fffcf0;
+}
+
+.pageArt {
+  height: 29.29vh; /* 311.72px / 1248px * 100vh */
+  width: 22.04vw;
+}
+
+.pageTitle {
+
+  width: 28.95vw; /* 329.12px / 1248px * 100vw */
+  height: 7.36vh; /* 63.84px / 866px * 100vh */
+
+}
+
+.displayChanges {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+
+}
+/*.rectBoard {*/
+/*  z-index: -1;*/
+/*  margin-left: -37.5vw;*/
+
+/*}*/
+.board {
+  display: flex;
+  align-items: center;
+  width: max-content;
+
+}
+.board-all {
+    display: flex;
+    flex-direction: column;
+    gap: 4.88vh;
+    padding:  0 2vw 0 0;
+
+
+}
+.starting-tiles{
+  display: flex;
+  flex-direction: column;
+  gap: 3.46vh;
+  width: max-content;
+  align-items: center;
+
+}
+.intro{
+  display: flex;
+  flex-direction: column;
+  gap: 6.93vh;
+  width: max-content;
+  padding-left: 4.01vw;
+
+}
+.main{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5.77vh 10.77vh;
+  margin-top: -17.32vh;
+}
