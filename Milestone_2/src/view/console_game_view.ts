@@ -10,7 +10,11 @@ class ConsoleGameView extends GameView {
   constructor(board: Board) {
     super(new ConsoleBoardView(board));
   }
-
+  
+  showAIMove(move: Move): void {
+    console.log(`AI played at position (${move.row + 1}, ${move.column + 1})`); // Assuming rows and columns are 0-indexed
+  }
+  
   showCurrPlayer(): void {
     // Implementation for showCurrPlayer method goes here
   }

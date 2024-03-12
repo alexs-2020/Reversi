@@ -1,46 +1,49 @@
 import PlayerSymbol from "./player_symbol";
 
 class Board {
-  /*This class represents the board of the game.
-   */
-  size: number; // size of the board. Defaults to 3.]
-  board:PlayerSymbol[][]
+  size: number;
+  board: PlayerSymbol[][];
 
   constructor(size: number = 3) {
     this.size = size;
-    //creating a board when board object is created 
     this.board = Array.from({ length: size }, () =>
-    Array.from({ length: size }, () => PlayerSymbol.Empty));
-    const mid_length= size/2;
+      Array.from({ length: size }, () => PlayerSymbol.Empty));
+    const mid_length = size / 2;
 
-    this.board[mid_length-1][mid_length-1] = PlayerSymbol.White;
+    this.board[mid_length - 1][mid_length - 1] = PlayerSymbol.White;
     this.board[mid_length][mid_length] = PlayerSymbol.White;
-    this.board[mid_length-1][mid_length] = PlayerSymbol.Black;
-    this.board[mid_length][mid_length -1] = PlayerSymbol.Black;
-
+    this.board[mid_length - 1][mid_length] = PlayerSymbol.Black;
+    this.board[mid_length][mid_length - 1] = PlayerSymbol.Black;
   }
 
-  updateCell(row: number, col: number, player: number) {
-    /*
-    currently set aa public method 
-    Method to update cell
-    */
+  updateCell(row: number, col: number, playerSymbol: PlayerSymbol): void {
+    this.board[row][col] = playerSymbol;
   }
-  getCell(row: number, col: number) {
-    /*
-    currently set as public method 
-    Method to get cell
-    */
+
+  getCell(row: number, col: number): PlayerSymbol {
+    return this.board[row][col];
   }
-  isboardFull():boolean{
+
+  isBoardFull(): boolean {
     for (let i = 0; i < this.size; i++) {
-      for (let j = 0; j <this.size; j++) {
+      for (let j = 0; j < this.size; j++) {
         if (this.board[i][j] === PlayerSymbol.Empty) {
-          return false; // Early return if an empty cell is found
+          return false;
         }
       }
     }
-    return true; 
+    return true;
+  }
+
+  clone(): Board {
+    const clonedBoard = new Board(this.size);
+    for (let row = 0; row < this.size; row++) {
+      for (let col = 0; col < this.size; col++) {
+        clonedBoard.board[row][col] = this.board[row][col];
+      }
+    }
+    return clonedBoard;
   }
 }
+
 export default Board;

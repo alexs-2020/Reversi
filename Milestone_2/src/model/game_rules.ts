@@ -1,102 +1,97 @@
-import { check } from "prettier";
 import Board from "./board";
 import Move from "./move";
 import Player from "./player";
 import PlayerSymbol from "./player_symbol";
-class GameRules {
-  board: Board
-    valid_directions:number
-  constructor(board: Board) {
-    // Constructor logic goes here
-    this.board = board
-      this.valid_directions=0
-  }
-  isLegalMove(move: Move, curr_player: Player): boolean {
-    return this.getLegalMove(move, curr_player).length > this.valid_directions;
-}
 
-  getLegalMove(move: Move, curr_player: Player): { row: number, col: number }[] {
-    // Find the directions it move
-    let positions: { row: number, col: number }[] = []; // Initialize positions as an empty array
-      this.valid_directions=0
+class GameRules {
+  board: Board;
+
+  constructor(board: Board) {
+    this.board = board;
+  }
+
+  isLegalMove(board: Board, move: Move, player: Player): boolean {
+    const flippedPositions = this.getFlippedPositions(board, move, player.symbol);
+    return flippedPositions.length > 0;
+  }
+
+  getFlippedPositions(board: Board, move: Move, playerSymbol: PlayerSymbol): { row: number, col: number }[] {
+    let flippedPositions: { row: number, col: number }[] = [];
+    const opponentSymbol = playerSymbol === PlayerSymbol.Black ? PlayerSymbol.White : PlayerSymbol.Black;
 
     const directions: { row: number, col: number }[] = [
-        { row: -1, col: 0 },   // Up
-        { row: 1, col: 0 },    // Down
-        { row: 0, col: -1 },   // Left
-        { row: 0, col: 1 },    // Right
-        { row: -1, col: -1 },  // Up-Left
-        { row: -1, col: 1 },   // Up-Right
-        { row: 1, col: -1 },   // Down-Left
-        { row: 1, col: 1 }     // Down-Right
+      { row: -1, col: 0 },   // Up
+      { row: 1, col: 0 },    // Down
+      { row: 0, col: -1 },   // Left
+      { row: 0, col: 1 },    // Right
+      { row: -1, col: -1 },  // Up-Left
+      { row: -1, col: 1 },   // Up-Right
+      { row: 1, col: -1 },   // Down-Left
+      { row: 1, col: 1 }     // Down-Right
     ];
 
-    directions.forEach(direction => {
-        positions.push(...this.checkDirection(move, direction, curr_player.symbol));
-    });
+    for (const direction of directions) {
+      let positionsToFlip: { row: number, col: number }[] = [];
+      let currentRow = move.row + direction.row;
+      let currentCol = move.column + direction.col;
 
-    return positions;
-}
-
-  checkDirection(move: Move, direction: { row: number, col: number }, symbol: PlayerSymbol): { row: number, col: number }[] {
-    let positions: { row: number, col: number }[] = [];
-    let curr_mv: [number, number] = [move.row + direction.row, move.column + direction.col];
-
-    // Change loop condition to use dynamic indices and check for boundaries
-    while (
-        curr_mv[0] >= 0 && curr_mv[0] < this.board.size&&
-        curr_mv[1] >= 0 && curr_mv[1] < this.board.size &&
-        this.board.board[curr_mv[0]][curr_mv[1]] !== PlayerSymbol.Empty
-    ) {
-         positions.push({ row: curr_mv[0], col: curr_mv[1] });
-         // Adjust the condition to check against the symbol
-        if (this.board.board[curr_mv[0]][curr_mv[1]] == symbol) {
-             this.valid_directions +=1
-            return positions;
-
-        }
-
-        // Update curr_mv for the next iteration
-        curr_mv = [curr_mv[0] + direction.row, curr_mv[1] + direction.col];
-
-
-    }
-
-    return [];
-}
-
-  flipPieces(positions: { row: number, col: number }[], symbol: PlayerSymbol): void {
-  positions.forEach(pos => this.board.board[pos.row][pos.col] = symbol);}
-
-  makeMove(move: Move, curr_player: Player): void {
-    this.board.board[move.row][move.column] = curr_player.symbol;
-    const positions = this.getLegalMove(move, curr_player);
-    this.flipPieces(positions, curr_player.symbol);
-
-        // Assuming you want to set the current player's symbol at the moved position
-       
-    }
-  
-
-
-//check if player has any valid playable moves
-hasValidPlacements(player: Player): boolean {
-  // Iterate through all positions on the board
-  for (let row = 0; row < this.board.board.length; row++) {
-      for (let col = 0; col < this.board.board[0].length; col++) {
-          if (this.isLegalMove(new Move(row, col), player)) {
-              return true; // Found a valid placement
-          }
+      while (
+        currentRow >= 0 && currentRow < board.size &&
+        currentCol >= 0 && currentCol < board.size &&
+        board.board[currentRow][currentCol] === opponentSymbol
+      ) {
+        positionsToFlip.push({ row: currentRow, col: currentCol });
+        currentRow += direction.row;
+        currentCol += direction.col;
       }
-  }
-  // No valid placements found
-  return false;
-}
 
-    
-  isGameOver():boolean{
-    
+      if (
+        currentRow >= 0 && currentRow < board.size &&
+        currentCol >= 0 && currentCol < board.size &&
+        board.board[currentRow][currentCol] === playerSymbol &&
+        positionsToFlip.length > 0
+      ) {
+        flippedPositions = flippedPositions.concat(positionsToFlip);
+      }
+    }
+
+    return flippedPositions;
+  }
+
+  flipPieces(board: Board, positions: { row: number, col: number }[], symbol: PlayerSymbol): void {
+    positions.forEach(pos => board.board[pos.row][pos.col] = symbol);
+  }
+
+  makeMove(board: Board, move: Move, player: Player): void {
+    const flippedPositions = this.getFlippedPositions(board, move, player.symbol);
+    if (flippedPositions.length > 0) {
+      board.board[move.row][move.column] = player.symbol;
+      this.flipPieces(board, flippedPositions, player.symbol);
+    }
+  }
+
+  hasValidPlacements(player: Player): boolean {
+    for (let row = 0; row < this.board.size; row++) {
+      for (let col = 0; col < this.board.size; col++) {
+        if (this.isLegalMove(this.board,new Move(row, col), player)) {
+          return true;
+        }
+      }
+    }
     return false;
   }
+
+  isGameOver(testBoard: Board): boolean {
+    const originalBoard = this.board; // Save the original board
+    this.board = testBoard; // Temporarily set the board to the provided board
+
+    const blackPlayer = new Player(PlayerSymbol.Black);
+    const whitePlayer = new Player(PlayerSymbol.White);
+    const gameOver = !this.hasValidPlacements(blackPlayer) && !this.hasValidPlacements(whitePlayer);
+
+    this.board = originalBoard; // Reset the board to the original board
+    return gameOver;
+  }
 }
+
 export default GameRules;
