@@ -31,6 +31,7 @@ justify-content: center
 
 }
 .board-all {
+  justify-content: center;
     display: flex;
     flex-direction: column;
     gap: 4.88vh;
