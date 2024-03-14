@@ -1,14 +1,16 @@
-import React from 'react'
-import logo from './logo.svg'
-import './App.css'
-import Home from './pages/Home'
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { GameSettingsProvider } from './GameSettingsProvider';
+import Home from './pages/Home';
 
 function App() {
   return (
-    <>
-      <Home />
-    </>
-  )
+    <Router>
+      <GameSettingsProvider>
+        <Home />
+      </GameSettingsProvider>
+    </Router>
+  );
 }
 
-export default App
+export default App;

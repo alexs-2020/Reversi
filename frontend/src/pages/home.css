@@ -13,14 +13,13 @@ body {
   height: 7.36vh; /* 63.84px / 866px * 100vh */
 
 }
-
 .displayChanges {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
-
+   min-width: 35.18vw;
 }
+
 /*.rectBoard {*/
 /*  z-index: -1;*/
 /*  margin-left: -37.5vw;*/
@@ -28,8 +27,7 @@ body {
 /*}*/
 .board {
   display: flex;
-  align-items: center;
-  width: max-content;
+justify-content: center
 
 }
 .board-all {
@@ -37,6 +35,8 @@ body {
     flex-direction: column;
     gap: 4.88vh;
     padding:  0 2vw 0 0;
+  min-height: 50vh;
+
 
 
 }
@@ -63,4 +63,36 @@ body {
   justify-content: space-between;
   padding: 5.77vh 10.77vh;
   margin-top: -17.32vh;
+  min-height: 70vh;
+}
+.overlaySetting {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  position: fixed; /* Position the overlay on top of the page */
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.56); /* Optional: Add a semi-transparent background */
+  z-index: 1000; /* Ensure the overlay is on top of other content */
+}
+.overlayBox{
+
+   width: 29.64vw;
+    height: 51.96vh;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+  background-color:  #FFFCF0;
+}
+.overlayInside {
+  width: 24.04vw;
+  height: 36.95vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.chip-shadow {
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
 }

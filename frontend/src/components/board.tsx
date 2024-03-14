@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './board.css'
+import { useGameSettings } from '../GameSettingsProvider'
 
 interface SquareProps {
   isDark: boolean
@@ -24,13 +25,13 @@ interface BoardProps {
 }
 
 function Board({ size, darkColor, lightColor }: BoardProps) {
-  const [boardSize, setBoardSize] = useState(size)
+  const {  currboardSize} = useGameSettings();
 
   function generateBoard() {
     const board = []
-    for (let row = 0; row < boardSize; row++) {
+    for (let row = 0; row < currboardSize; row++) {
       const rowSquares = []
-      for (let col = 0; col < boardSize; col++) {
+      for (let col = 0; col < currboardSize; col++) {
         const isDark = (row + col) % 2 === 0
         rowSquares.push(
           <Square

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode, useState } from 'react'
 import pageArt from '../images/page-art.svg'
 import Title from '../images/title.svg'
 import SinglePlayer from '../images/single-player.svg'
@@ -9,21 +9,22 @@ import './home.css'
 import ChangeBoard from '../images/change-board.svg'
 import ChangePeice from '../images/change-peice.svg'
 import ViewStats from '../images/view-stats.svg'
+import ChangeColor from '../components/change_color'
+import ChangeBoardSize from '../components/change_board'
+import { useGameSettings } from '../GameSettingsProvider';
 
-interface MyComponentProps {
-  boardSize: number
-}
+
 
 interface ImageButtonProps {
-  width: string
-  name: string
-  height: string
-  alt: string
-  imagesrc: string
-  resp: string // Assuming that the resp parameter is a function with no arguments and no return value
+  width: string;
+  height: string;
+  name: string;
+  alt: string;
+  imagesrc: string;
+  resp: ReactNode | (() => void);
 }
 
-const ImageButton: React.FC<ImageButtonProps> = ({
+export const ImageButton: React.FC<ImageButtonProps> = ({
   width,
   height,
   name,
@@ -31,13 +32,17 @@ const ImageButton: React.FC<ImageButtonProps> = ({
   imagesrc,
   resp,
 }) => {
+  const { showResp, setShowResp } = useGameSettings();
+
   const handleButtonClick = () => {
-    // Add your button click logic here
-    console.log(resp)
-  }
+    setShowResp(name, !showResp[name]);
+    if (typeof resp === 'function') {
+      (resp as () => void)();
+    }
+  };
 
   return (
-    <div>
+    <div id={name}>
       <button
         className={name}
         onClick={handleButtonClick}
@@ -49,15 +54,18 @@ const ImageButton: React.FC<ImageButtonProps> = ({
           style={{ cursor: 'pointer', width: width, height: height }}
         />
       </button>
+      {showResp[name] && (typeof resp !== 'function' ? resp : null)}
     </div>
-  )
-}
+  );
+};
 
 function Home() {
-  const boardSize = 8
+  const {  currboardSize} = useGameSettings();
+  const darkcolor ='#416072'
+  const lightcolor='#5292CD'
   return (
     <div>
-      <img src={pageArt} alt="Dynamic Image" className="pageArt" />
+      <img src={pageArt} alt="page art" className="pageArt" />
       <div className='main'>
       <div className='intro'>
       <img src={Title} alt="pageTitle" className="pageTitle" />
@@ -91,19 +99,13 @@ function Home() {
       <div className="board-all">
         <div className="board">
           <Board
-            size={boardSize}
-            darkColor={'#416072'}
-            lightColor={'#D4F4FE'}
+            size={currboardSize}
+            darkColor={darkcolor}
+            lightColor={lightcolor}
           />
-          {/*<div className='rectBoard' style={{*/}
-          {/*  width: `${boardSize * 6.93}vh`,*/}
-          {/* height: `${(boardSize * 7.15) + 5.77}vh`,*/}
-          {/*  border: `${boardSize * 0.1}px solid #000`,*/}
-          {/*}}>*/}
-          {/*</div>*/}
         </div>
         <div
-          className="displayChanges" style={{width: `${boardSize * 7.152}vh`}}
+          className="displayChanges" style={{width: `${currboardSize * 7.152}vh`}}
         >
           <ImageButton
             width={'9.26vw'}
@@ -111,7 +113,7 @@ function Home() {
             height={'5.43vh'}
             alt={'Change Board button'}
             imagesrc={ChangeBoard}
-            resp={'clicked Change Board'}
+            resp={<ChangeBoardSize />}
           />
           <ImageButton
             width={'9.26vw'}
@@ -119,7 +121,7 @@ function Home() {
             height={'5.43vh'}
             alt={'Change Peice button'}
             imagesrc={ChangePeice}
-            resp={'clicked ChangePeice'}
+            resp={<ChangeColor />}
           />
           <ImageButton
             width={'9.26vw'}
