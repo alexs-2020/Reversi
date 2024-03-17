@@ -3,7 +3,7 @@ import '../pages/home.css';
 import { useGameSettings } from '../GameSettingsProvider';
 import '../pages/home.css';
 import { ImageButton } from '../pages/Home';
-import playButton from '../images/play.svg';
+import playButton from '../images/done.svg';
 
 
 

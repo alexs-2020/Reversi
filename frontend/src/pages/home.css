@@ -1,5 +1,6 @@
 body {
   background-color: #fffcf0;
+  font-size: 10px;
 }
 
 .pageArt {
@@ -84,6 +85,7 @@ justify-content: center
     display: flex;
     justify-content: center;
     align-self: center;
+  align-items: center;
   background-color:  #FFFCF0;
 }
 .overlayInside {
@@ -92,6 +94,7 @@ justify-content: center
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center
 }
 
 .chip-shadow {

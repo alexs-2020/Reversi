@@ -1,10 +1,11 @@
 import React, { ReactNode, useState } from 'react'
 import pageArt from '../images/page-art.svg'
 import Title from '../images/title.svg'
-import SinglePlayer from '../images/single-player.svg'
-import Multiplayer from '../images/multiplayer.svg'
+import SinglePlayerImg from '../images/single-player.svg'
+import MultiplayerIMG from '../images/multiplayer.svg'
 import Online from '../images/online.svg'
 import Board from '../components/board'
+import Local_player from '../components/local_player'
 import './home.css'
 import ChangeBoard from '../images/change-board.svg'
 import ChangePeice from '../images/change-peice.svg'
@@ -75,16 +76,16 @@ function Home() {
         name={'singlePlayer'}
         height={'5.43vh'}
         alt={'single player button'}
-        imagesrc={SinglePlayer}
-        resp={'clicked single player'}
+        imagesrc={SinglePlayerImg}
+        resp={<Local_player playerType='singlePlayer'/>}
       />
       <ImageButton
         width={'20.73vw'}
         name={'multiPlayer'}
         height={'5.43vh'}
         alt={'multiplayer button'}
-        imagesrc={Multiplayer}
-        resp={'clicked multiplayer'}
+        imagesrc={MultiplayerIMG}
+        resp={<Local_player playerType='multiPlayer'/>}
       />
       <ImageButton
         width={'20.73vw'}

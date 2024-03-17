@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Chips from './chips';
 import '../pages/home.css';
 import { ImageButton } from '../pages/Home';
-import playButton from '../images/play.svg';
+import playButton from '../images/done.svg';
 import { useGameSettings } from '../GameSettingsProvider';
 
 
@@ -28,7 +28,7 @@ const ChangeColor: React.FC = () => {
         <div style={{display:'flex', flexDirection:'row', gap:'20px', justifyContent:'center'}}>
       <Chips color={lightcolor} onClick={() => handleChipClick(lightcolor)} />
       <Chips color={darkcolor} onClick={() => handleChipClick(darkcolor)} />  </div>
-      <ImageButton width={'23.81vw'} name={'playButton'} height={'5.43vh'} alt={'play button'}
+      <ImageButton width={'23.81vw'} name={'continueButton'} height={'5.43vh'} alt={'continue button'}
                    imagesrc={playButton} resp={handleNavigateHome}/>
         </div>
     </div>
