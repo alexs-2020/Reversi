@@ -6,10 +6,11 @@ import { ImageButton } from '../pages/Home'
 import playButton from '../images/done.svg'
 
 const ChangeBoard: React.FC = () => {
-  const { setBoardSize, setShowResp, showResp } = useGameSettings()
+  const { setBoardSize, setShowResp, showResp,game } = useGameSettings()
 
   const handleNavigateHome = () => {
     setShowResp('ChangeBoard', !showResp['ChangeBoard']) // Hide the response content for the 'ChangeBoard' button
+    
   }
 
   const handleBoardClick = (size: number) => {

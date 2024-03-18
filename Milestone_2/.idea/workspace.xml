@@ -4,42 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="beb35e61-dc31-4086-94f5-e70e51ee682c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../frontend/src/controller/game_state.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/src/view/gui_board_view.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/src/view/gui_game_view.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/app.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/GameSettingsProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/GameSettingsProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/GamePlay.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/GamePlay.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/board.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/board.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/board.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/board.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/change_board.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/change_board.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/change_color.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/change_color.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/chips.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/chips.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/how_to_play.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/how_to_play.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/local_player.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/local_player.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/play_online.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/play_online.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/view_stats.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/view_stats.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/controller/game_controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/controller/game_controller.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/images/multiplayer.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/images/multiplayer.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/model/board.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/model/board.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/model/game.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/model/game.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/model/game_rules.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/model/game_rules.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/model/move.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/model/move.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/model/player.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/model/player.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/model/player_symbol.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/model/player_symbol.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/pages/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/pages/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/pages/home.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/view/board_view.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/view/board_view.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/view/console_board_view.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/view/console_board_view.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/view/console_game_view.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/view/console_game_view.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/view/game_view.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/view/game_view.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/yarn.lock" afterDir="false" />
-    </list>
+    <list default="true" id="beb35e61-dc31-4086-94f5-e70e51ee682c" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

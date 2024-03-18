@@ -14,6 +14,7 @@ import ChangeColor from '../components/change_color'
 import ChangeBoardSize from '../components/change_board'
 import { useGameSettings } from '../GameSettingsProvider'
 import GamePlay from '../components/GamePlay'
+import PlayOnline from '../components/play_online'
 
 interface ImageButtonProps {
   width: string
@@ -93,7 +94,7 @@ function Home() {
               height={'5.43vh'}
               alt={'online button'}
               imagesrc={Online}
-              resp={'clicked play online'}
+              resp={<PlayOnline/>}
             />
           </div>
         </div>

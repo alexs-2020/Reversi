@@ -23,15 +23,15 @@ class ConsoleGameView extends GameView {
 
   showPlayerScores(player1: Player, player2: Player): void {
     this.Gamestate.log(
-      `showPlayerScores \n \nPlayer ${symbolToStr[player1.symbol]} current score: ${player1.getScore()}`,
+      ` \n \nPlayer ${symbolToStr[player1.symbol]} current score: ${player1.getScore()}`,
     )
     this.Gamestate.log(
-      `showPlayerScores Player ${symbolToStr[player2.symbol]} current score: ${player2.getScore()}`,
+      ` Player ${symbolToStr[player2.symbol]} current score: ${player2.getScore()}`,
     )
   }
   showCurrentPlayer(player: Player): void {
     this.Gamestate.log(
-      `showCurrentPlayer current player: Player ${symbolToStr[player.symbol]}`,
+      `current player: Player ${symbolToStr[player.symbol]}`,
     )
   }
   getMoveGUI(player: Player,): Move {
@@ -63,19 +63,19 @@ class ConsoleGameView extends GameView {
     this.Gamestate.log('showPossibleMove \nPossible Moves:')
     moves.forEach((move, index) => {
       this.Gamestate.log(
-        `showPossibleMove Move ${index + 1}: Row ${move.row + 1}, Column ${move.column + 1}`,
+        ` Move ${index + 1}: Row ${move.row + 1}, Column ${move.column + 1}`,
       )
     })
   }
   showWinner(player: Player): void {
     this.Gamestate.log(
-      `showWinner Player ${symbolToStr[player.symbol]} is the winner!`,
+      `Player ${symbolToStr[player.symbol]} is the winner!`,
     )
   }
 
   showIllegalMove(move: Move): void {
     this.Gamestate.log(
-      `showIllegalMove Illegal Move: Row ${move.row + 1}, Column ${move.column + 1}`,
+      ` Illegal Move: Row ${move.row + 1}, Column ${move.column + 1}`,
     )
   }
 

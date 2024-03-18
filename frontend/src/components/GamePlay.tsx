@@ -15,7 +15,7 @@ const GamePlay = () => {
     // Initialize the game controller
     const controller = new GameController(game, view);
     setGameController(controller);
-  }, [game, view]);
+  }, [game, view,GState]);
 
   useEffect(() => {
     // Check if the game is over
@@ -24,7 +24,7 @@ const GamePlay = () => {
     let validPlacements = game.getValidPlacements();
     let moves = validPlacements.map((validPlacement) => validPlacement.move);
     setValidMoves(moves);
-  }, [game]); // Add game to dependency array if it can change
+  }, [game,GState]); // Add game to dependency array if it can change
 
   useEffect(() => {
     if (play && gameController) {
@@ -59,7 +59,6 @@ const GamePlay = () => {
   return (
     <div>
       <p>{GState.log_message}</p>
-      {/* Add more game-related UI components here */}
     </div>
   );
 };

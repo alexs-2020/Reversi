@@ -15,6 +15,7 @@ const HowtoPlay: React.FC<PlayerProps> = ({ playerType }) => {
     useGameSettings()
 
   const handleNavigateHowtoPlay = () => {
+    
     // Toggle the visibility of the response content for the specified playerType
     setShowResp(playerType, !showResp[playerType])
     setPlay(true)

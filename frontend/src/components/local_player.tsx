@@ -42,13 +42,14 @@ const LocalPlayer: React.FC<LocalPlayerProps> = ({ playerType }) => {
     setStartingPieceColor(color)
   }
   const handleShowHowToPlay = () => {
-
+    
     setGame(new Game(currboardSize)) 
     setGState(new GameState)
     setCurrMove(new Move(-1,-1))
     setView(new ConsoleGameView(game.board, GState,currMove ))
     console.log(game)
     setShowHowToPlay(true)
+   
   }
 
   return (
