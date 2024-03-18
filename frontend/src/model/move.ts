@@ -1,10 +1,10 @@
 export class Move {
-  row: number;
-  column: number;
+  row: number
+  column: number
 
   constructor(row: number, column: number) {
-    this.row = row;
-    this.column = column;
+    this.row = row
+    this.column = column
   }
 }
-export default Move;
+export default Move

@@ -1,6 +1,7 @@
 import Game from "./model/game";
 import ConsoleGameView from "./view/console_game_view";
 import GameController from "./controller/game_controller";
+
 import * as readlineSync from 'readline-sync';
 
 // Function to get user input for board size 

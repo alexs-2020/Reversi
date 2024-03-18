@@ -1,12 +1,11 @@
 /* Add these styles to your CSS file */
 .othello-board {
   display: inline-block;
-   outline-offset: 25px;
-   outline: 1px solid #000;
+  outline-offset: 25px;
+  outline: 1px solid #000;
 
-      align-self: flex-start;
+  align-self: flex-start;
   width: fit-content;
-
 }
 
 .board-row {

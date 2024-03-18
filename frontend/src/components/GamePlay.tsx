@@ -1,29 +1,67 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Game from '../model/game';
 import ConsoleGameView from '../view/console_game_view';
 import GameController from '../controller/game_controller';
-import { useGameSettings } from '../GameSettingsProvider'
-const GameComponent = () => {
-  const { currboardSize} = useGameSettings();
+import { useGameSettings } from '../GameSettingsProvider';
+import Move from '../model/move';
+
+const GamePlay = () => {
+  const { currboardSize, GState, currMove, play, boardInfo, setBoardInfo, game, setGame, view, setView } = useGameSettings();
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [validMoves, setValidMoves] = useState<Move[]>([]);
+  const [gameController, setGameController] = useState<GameController | null>(null);
+
   useEffect(() => {
-    // Create a new game instance
-    const game = new Game(currboardSize)
+    // Initialize the game controller
+    const controller = new GameController(game, view);
+    setGameController(controller);
+  }, [game, view]);
 
-    // Create a new console game view instance
-    const view = new ConsoleGameView(game.board);
+  useEffect(() => {
+    // Check if the game is over
+    setIsGameOver(game.isGameOver());
+    // Retrieve valid placements and moves for the current player
+    let validPlacements = game.getValidPlacements();
+    let moves = validPlacements.map((validPlacement) => validPlacement.move);
+    setValidMoves(moves);
+  }, [game]); // Add game to dependency array if it can change
 
-    // Create a new game controller instance with the game and view
-    const gameController = new GameController(game, view);
+  useEffect(() => {
+    if (play && gameController) {
+      // Update the board information
+      setBoardInfo(game.get_boardInfo());
+      console.log(view.getMoveGUI(game.curr_player));
 
-    // Start the game
-    gameController.startGame();
-  }, []);
+      // Display the board and check for game over
+      view.displayBoard();
+      if (game.isGameOver()) {
+        setIsGameOver(true);
+      } else {
+        // Retrieve valid placements and moves for the current player
+        let validPlacements = game.getValidPlacements();
+        let validMoves = validPlacements.map((validPlacement) => validPlacement.move);
 
+        // Handle player move and switch players
+        if (validPlacements.length > 0 && currMove) {
+          if (game.isLegalMove(currMove, validPlacements)) {
+            game.makeMove(currMove);
+            view.displayBoard();
+            game.switchPlayers();
+          } else {
+            view.showIllegalMove(currMove);
+          }
+        }
+      }
+    }
+  }, [play, currMove, game, view, setBoardInfo, gameController]);
+
+  // Render your game's UI here
   return (
     <div>
-      {/* Render your game board and other UI elements here */}
+      <p>{GState.log_message}</p>
+      {/* Add more game-related UI components here */}
     </div>
   );
 };
 
-export default GameComponent;
+export default GamePlay;
