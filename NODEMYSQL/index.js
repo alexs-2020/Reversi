@@ -1,8 +1,5 @@
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-
-
-
 const express = require("express");
 const mysql = require("mysql")
 
@@ -40,9 +37,6 @@ db.connect(err => {
               }
               createTable();
         });
-
-
-
     })
 })
 
@@ -54,6 +48,21 @@ function createTable() {
           }
           console.log("User table Created/Exists")
     })
+    db.query('CREATE TABLE IF NOT EXISTS board (id INT AUTO_INCREMENT PRIMARY KEY, size INT, current_turn VARCHAR(100), game_state VARCHAR(100))', err => {
+      if(err){
+          throw err
+        }
+        console.log("Board table Created/Exists")
+    })
+    db.query('CREATE TABLE IF NOT EXISTS pieces ( id INT AUTO_INCREMENT PRIMARY KEY, board_id INT, position VARCHAR(5), color VARCHAR(100))', err => {
+      if(err){
+          throw err
+        }
+        console.log("Board table Created/Exists")
+    })
+
+  
+  
 }
 
 
@@ -121,7 +130,7 @@ app.post('/login', (req, res) => {
       }
 
       // Passwords match, login successful
-      // Implement your session or token logic here, for example, generating a JWT
+      // Implement toekn logic
       res.send('Login successful');
     });
   });
