@@ -53,7 +53,7 @@ const GamePlay = () => {
         }
       }
     }
-  }, [play, currMove, game, view, setBoardInfo, gameController]);
+  }, [play, currMove, game, view, setBoardInfo,GState, gameController]);
 
   // Render your game's UI here
   return (
