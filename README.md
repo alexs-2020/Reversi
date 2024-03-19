@@ -9,7 +9,6 @@ To start working with the project, follow these steps:
 1. **Clone the Repository:**
    ```
    git clone https://github.com/alexs-2020/Reversi.git
-   cd reversi-game/Milestone_2
    ```
 
 2. **Install Node.js and npm:**
@@ -31,11 +30,26 @@ To start working with the project, follow these steps:
    ```
    yarn add all 
    ```
-6. **Running the code :**
+*** make sure to run the next part on two terminals simultaneously
+## Frontend
+
+1. ** navigating to the directory**
+  ```
+   cd reversi-game/frontend  
+   ```
+2. **Running the code :**
    ```
    yarn start
    ```
-
+## backend
+1. ** navigating to the directory**
+  ```
+   cd reversi-game/backend 
+  ```
+2. **Running the code :**
+   ```
+   yarn server.js
+   ```
 ## Code Formatting
 
 To maintain consistent code formatting, we use Prettier. Run the following command to format the files:
