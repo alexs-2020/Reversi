@@ -40,22 +40,38 @@ db.connect(err => {
               }
               createTable();
         });
-
-
-
     })
 })
 
+
+const { UserQueryBuilder, BoardQueryBuilder } = require('./routes/DbBuilder');
+
+// Example usage for creating a new user
+const userQueryBuilder = new UserQueryBuilder();
+const userQuery = userQueryBuilder.build().query;
+ userQueryBuilder.reset();
+ boardQuery = new BoardQueryBuilder().build();
+
+
+console.log(userQuery);
+// Execute userQuery against your database here
+
+// Example usage for creating a new board
+
+// console.log(boardQuery);
+// Execute boardQuery against your database here
+
 function createTable() {
     //  create user table
-    db.query('CREATE TABLE IF NOT EXISTS users ( id INT AUTO_INCREMENT NOT NULL PRIMARY KEY, username VARCHAR(100), password VARCHAR(100), wins INT, losses INT, ratio FLOAT)', err => {
-        if(err){
-            throw err
-          }
-          console.log("User table Created/Exists")
-    })
+    db.query(userQuery, err => {
+      if(err){
+          throw err
+        }
+        console.log("User table Created/Exists")
+  })
+
     //  create board table
-    db.query('CREATE TABLE IF NOT EXISTS board (id INT AUTO_INCREMENT PRIMARY KEY, size INT NOT NULL, current_turn VARCHAR(100), game_state VARCHAR(100))', err => {
+    db.query(boardQuery, err => {
       if(err){
           throw err
         }
@@ -67,26 +83,27 @@ function createTable() {
         throw err
       }
       console.log("Piece table Created/Exists")
-})
-//  create game_session table
-db.query('CREATE TABLE IF NOT EXISTS game_sessions (id INT AUTO_INCREMENT PRIMARY KEY, board_id INT, user_id INT, FOREIGN KEY (board_id) REFERENCES board(id), FOREIGN KEY (user_id) REFERENCES users(id))', err => {
-  if(err){
-      throw err
-    }
-    console.log("Game table Created/Exists")
-})
+    })
+    //  create game_session table
+    db.query('CREATE TABLE IF NOT EXISTS game_sessions (id INT AUTO_INCREMENT PRIMARY KEY, board_id INT, user_id INT, FOREIGN KEY (board_id) REFERENCES board(id), FOREIGN KEY (user_id) REFERENCES users(id))', err => {
+      if(err){
+          throw err
+        }
+        console.log("Game table Created/Exists")
+    })
 }
 
 
 app.post('/signup', (req, res) => {
   const { username, password } = req.body;
   if (username === '' || password === '') {
-    res.status(400).json({ message: "Provide email, password and name" });
+    res.status(400).json({ message: "Provide username and password" });
     return;
   }
   // Check if the username already exists
-  const checkUsernameSql = 'SELECT * FROM users WHERE username = ?';
-  db.query(checkUsernameSql, [username], (err, result) => {
+  const checkUsernameSql = userQueryBuilder.setUsername(username).checkUsername().build();
+  db.query(checkUsernameSql.query, checkUsernameSql.fields, (err, result) => {
+    userQueryBuilder.reset();
     if (err) {
       return res.status(500).send('Error checking username availability');
     }
@@ -100,8 +117,10 @@ app.post('/signup', (req, res) => {
           return res.status(500).send('Error hashing password');
         }
         // create user
-        const sql = 'INSERT INTO users (username, password) VALUES (?, ?)';
-        db.query(sql, [username, hash], (err, result) => {
+        userQueryBuilder.setUsername(username).setPassword(hash).signUp()
+        const newUser = userQueryBuilder.build();
+        userQueryBuilder.reset();
+        db.query(newUser.query, newUser.fields, (err, result) => {
           if (err) {
             return res.status(500).send('Error registering user');
           }
@@ -218,6 +237,15 @@ app.put("/updatescore", (req, res) => {
 //     }
 //   });
 // });
+
+
+
+
+
+
+
+
+
 
 
 

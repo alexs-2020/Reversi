@@ -10,6 +10,8 @@
     "@types/node": "^16.18.80",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
+    "all": "^0.0.0",
+    "axios": "^1.6.8",
     "enum": "^3.0.4",
     "enum-values": "^1.2.1",
     "prettier": "^3.2.5",
