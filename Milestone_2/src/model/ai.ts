@@ -3,6 +3,9 @@ import Board from "./board";
 import Move from "./move";
 import GameRules from "./game_rules";
 import Player from "./player";
+import { Clonable } from './clonable';
+
+
 
 class AI {
     symbol: PlayerSymbol;

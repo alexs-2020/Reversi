@@ -1,8 +1,11 @@
 import PlayerSymbol from "./player_symbol";
+import { Clonable } from './clonable';
 
-class Board {
+
+class Board implements Clonable<Board>{
   size: number;
   board: PlayerSymbol[][];
+  
 
   constructor(size: number = 3) {
     this.size = size;
