@@ -43,17 +43,25 @@ db.connect(err => {
     })
 })
 
+// Builders
+// const { UserQueryBuilder, BoardQueryBuilder } = require('./routes/DbBuilder');
 
-const { UserQueryBuilder, BoardQueryBuilder } = require('./routes/DbBuilder');
+// // Create appropriate builders
+// const userQueryBuilder = new UserQueryBuilder();
+// const userQuery = userQueryBuilder.build().query;
+// userQueryBuilder.reset();
 
-// Create appropriate builders
-const userQueryBuilder = new UserQueryBuilder();
-const userQuery = userQueryBuilder.build().query;
-userQueryBuilder.reset();
+// const boardQueryBuilder = new UserQueryBuilder();
+// const boardQuery = boardQueryBuilder.build().query;
+// boardQueryBuilder.reset();
+const { UserQuery, BoardQuery, PiecesQuery, GameQuery} = require('./routes/Template');
 
-const boardQueryBuilder = new UserQueryBuilder();
-const boardQuery = boardQueryBuilder.build().query;
-boardQueryBuilder.reset();
+
+const userQuery = new UserQuery().build().query;
+const boardQuery = new BoardQuery().build().query;
+const pieceQuery = new PiecesQuery().build().query;
+const gameQueryQuery = new GameQuery().build().query;
+
 
 
 function createTable() {
@@ -72,20 +80,20 @@ function createTable() {
         }
         console.log("Board table Created/Exists")
   })
-  // //  create piece table
-  // db.query('CREATE TABLE IF NOT EXISTS pieces (id INT AUTO_INCREMENT PRIMARY KEY, board_id INT, position VARCHAR(5), color VARCHAR(100), FOREIGN KEY (board_id) REFERENCES board(id))', err => {
-  //   if(err){
-  //       throw err
-  //     }
-  //     console.log("Piece table Created/Exists")
-  //   })
-  //   //  create game_session table
-  //   db.query('CREATE TABLE IF NOT EXISTS game_sessions (id INT AUTO_INCREMENT PRIMARY KEY, board_id INT, user_id INT, FOREIGN KEY (board_id) REFERENCES board(id), FOREIGN KEY (user_id) REFERENCES users(id))', err => {
-  //     if(err){
-  //         throw err
-  //       }
-  //       console.log("Game table Created/Exists")
-  //   })
+  //  create piece table
+  db.query(pieceQuery, err => {
+    if(err){
+        throw err
+      }
+      console.log("Piece table Created/Exists")
+    })
+    //  create game_session table
+    db.query(gameQueryQuery, err => {
+      if(err){
+          throw err
+        }
+        console.log("Game table Created/Exists")
+    })
 }
 
 
