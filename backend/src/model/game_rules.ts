@@ -3,10 +3,6 @@ import Board from "./board";
 import Move from "./move";
 import Player from "./player";
 import PlayerSymbol from "./player_symbol";
-import player_symbol from "./player_symbol";
-import player from "./player";
-import board from "./board";
-import move from "./move";
 import {builders} from "prettier/doc";
 import cursor = builders.cursor;
 class GameRules {
@@ -62,13 +58,13 @@ isLegalMove(move: Move, valid_placement: { move: Move,valid_direction:number,  p
 
         // Change loop condition to use dynamic indices and check for boundaries
         while (
-            curr_mv[0] >= 0 && curr_mv[0] < this.board.size &&
-            curr_mv[1] >= 0 && curr_mv[1] < this.board.size &&
-            this.board.board[curr_mv[0]][curr_mv[1]] !== PlayerSymbol.Empty
+            curr_mv[0] >= 0 && curr_mv[0] < this.board.getBoardSize() &&
+            curr_mv[1] >= 0 && curr_mv[1] < this.board.getBoardSize() &&
+            this.board.getBoard()[curr_mv[0]][curr_mv[1]] !== PlayerSymbol.Empty
             ) {
             positions.push({row: curr_mv[0], col: curr_mv[1]});
             // Adjust the condition to check against the symbol
-            if (this.board.board[curr_mv[0]][curr_mv[1]] == symbol) {
+            if (this.board.getBoard()[curr_mv[0]][curr_mv[1]] == symbol) {
                 this.valid_directions += 1
                 return positions;
 
@@ -84,14 +80,14 @@ isLegalMove(move: Move, valid_placement: { move: Move,valid_direction:number,  p
     }
 
     flipPieces(positions: { row: number,   col: number }[],valid_direction:number, player:Player, other_player:Player): void {
-        positions.forEach(pos => this.board.board[pos.row][pos.col] = player.symbol);
+        positions.forEach(pos => this.board.getBoard()[pos.row][pos.col] = player.symbol);
         player.updateScore(positions.length-valid_direction)
         other_player.updateScore((positions.length- valid_direction)*-1)
 
     }
 
     makeMove(move: Move, curr_player: Player, other_player:Player): void {
-        this.board.board[move.row][move.column] = curr_player.symbol;
+        this.board.getBoard()[move.row][move.column] = curr_player.symbol;
         if (this.validMove.positions){
             this.flipPieces(this.validMove.positions, this.validMove.valid_direction,  curr_player,other_player);
         }
@@ -105,9 +101,9 @@ isLegalMove(move: Move, valid_placement: { move: Move,valid_direction:number,  p
     // Iterate through all positions on the board
     const valid_placements: { move: Move,valid_direction:number, positions: { row: number, col: number }[] }[] = [];
 
-    for (let row = 0; row < this.board.board.length; row++) {
-        for (let col = 0; col < this.board.board[0].length; col++) {
-            if (this.board.board[row][col] == PlayerSymbol.Empty) {
+    for (let row = 0; row < this.board.getBoard().length; row++) {
+        for (let col = 0; col < this.board.getBoard()[0].length; col++) {
+            if (this.board.getBoard()[row][col] == PlayerSymbol.Empty) {
                 let curr_mv = new Move(row, col);
                 let positions = this.getLegalMove(curr_mv, player);
                 if (positions.length > this.valid_directions) {

@@ -19,6 +19,7 @@ showCurrentPlayer(player:Player):void{
      console.log(`current player: Player ${symbolToStr[player.symbol]}`);
 
 }
+ 
 
   getMove(player:Player): Move {
     const moveInput: string = readlineSync.question(`\n \nPlayer ${symbolToStr[player.symbol]}, Enter your move (row,col): `) || '';
@@ -54,6 +55,7 @@ showCurrentPlayer(player:Player):void{
  showNoMovesLeft(): void {
     console.log("There are no moves left");
   }
+ 
 }
 
 export default ConsoleGameView;

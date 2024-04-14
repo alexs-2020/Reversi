@@ -3,6 +3,7 @@ import Board from "./board";
 import PlayerSymbol from "./player_symbol";
 import GameRules from "./game_rules";
 import Move from "./move";
+import BoardEnhancer from "./board_decorator";
 class Game {
   /*
     The class attributes can be changed from public to private currently
@@ -11,16 +12,16 @@ class Game {
   curr_player: Player;
   player1: Player;
   player2: Player;
-  board: Board;
+  board: BoardEnhancer;
   rules: GameRules;
 
   // Constructor initializes the game with players, board, and rules
-  constructor(size: number) {
+  constructor() {
     this.player1 = new Player(PlayerSymbol.Black);
     this.player2 = new Player(PlayerSymbol.White);
-    this.board = new Board(size);
+    this.board = new BoardEnhancer();
     this.curr_player = this.player1;
-    this.rules = new GameRules(this.board);
+    this.rules = new GameRules(this.board.getBoard());
   }
 
   // Check if a move is legal based on the current game state
