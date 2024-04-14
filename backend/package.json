@@ -13,6 +13,7 @@
     "mysql": "^2.18.1",
     "prettier": "^3.2.4",
     "readline-sync": "^1.4.10",
+    "socket.io": "^4.7.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },

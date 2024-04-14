@@ -190,6 +190,48 @@ app.put("/updatescore", (req, res) => {
 });
 
 
+
+const http = require('http')
+const socketio = require('socket.io')
+
+const server = http.createServer(app)
+const io = socketio(server)
+
+
+
+
+const gameLogic = require('./gameLogic') //WHATEVER IT IS
+
+// get the gameID encoded in the URL. 
+// check to see if that gameID matches with all the games currently in session. 
+// join the existing game session. 
+// create a new session.  
+// run when client connects
+
+io.on('connection', client => {
+  console.log('A client connected:', client.id);
+  
+  // Assuming you are sending 'gameID' from client on connection
+  client.on('joinGame', (gameID) => {
+    if (games[gameID]) {
+      console.log('Joining existing game:', gameID);
+      client.join(gameID);
+      // Optionally send some game state to client or notify others
+    } else {
+      console.log('Creating new game with ID:', gameID);
+      games[gameID] = { /* some game state */ };
+      client.join(gameID);
+      // Initialize new game logic here
+      gameLogic.initializeGame(io, client, gameID);
+    }
+  });
+});
+// In GAME LOGIC
+
+
+
+
+
 // db.query('SELECT * FROM users', (err, results, field) => {
 //     if(err){
 //         throw err
