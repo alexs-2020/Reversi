@@ -48,7 +48,7 @@ To start working with the project, follow these steps:
   ```
 2. **Running the code :**
    ```
-   yarn server.js
+   node index.js
    ```
 ## Code Formatting
 
