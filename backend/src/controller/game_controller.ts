@@ -2,13 +2,14 @@ import Game from "../model/game";
 import ConsoleGameView from "../view/console_game_view";
 import Move from "../model/move";
 import Player from "../model/player";
+import web_game_view from "../view/web_game_view";
 /**
  * GameController class controls the flow of the game by interacting with the model and view.
  * It initializes with a Game model and a ConsoleGameView, then starts the main game loop.
  */
 class GameController {
   model: Game;                // The game model
-  view: ConsoleGameView;      // The console game view
+  view: ConsoleGameView| web_game_view;      // The console game view
 
   /**
    * Constructor for GameController class.
@@ -26,6 +27,7 @@ class GameController {
   startGame(): void {
     // Display initial game board
     this.view.displayBoard();
+
 
     // Main game loop
     while (true) {
@@ -46,7 +48,7 @@ class GameController {
       // Validate the move until a legal move is obtained
       if (validPlacements.length > 0) {
         // Get move from the current player
-        let move: Move = this.view.getMove(this.model.curr_player);
+        let move: Move =this.view.getMove(this.model.curr_player);
         while (!this.model.isLegalMove(move, validPlacements)) {
           this.view.showIllegalMove(move);
           move = this.view.getMove(this.model.curr_player);
