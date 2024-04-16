@@ -10,6 +10,7 @@ abstract class GameView {
   }
   abstract showCurrentPlayer(player:Player):void
   abstract showPlayerScores(player1: Player, player2:Player): void;
+  abstract  showAIMove(move: Move): void;
 
   abstract getMove(player:Player): void;
 

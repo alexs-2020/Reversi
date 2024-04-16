@@ -10,7 +10,9 @@ class ConsoleGameView extends GameView {
   constructor(board: Board) {
     super(new ConsoleBoardView(board));
   }
-
+  showAIMove(move: Move): void {
+    console.log(`AI played at position (${move.row + 1}, ${move.column + 1})`); // Assuming rows and columns are 0-indexed
+  }
  showPlayerScores(player1: Player, player2:Player): void {
   console.log(`\n \nPlayer ${symbolToStr[player1.symbol]} current score: ${player1.getScore()}`);
   console.log(`Player ${symbolToStr[player2.symbol] } current score: ${player2.getScore()}`);
@@ -29,13 +31,13 @@ showCurrentPlayer(player:Player):void{
     }
     const row: number = parseInt(values[0], 10)-1;
     const col: number = parseInt(values[1], 10)-1;
-    
+
     if (isNaN(row) || isNaN(col)) {
     console.log('Invalid input. Please enter numeric values for row and col.');
     return this.getMove(player); // Retry input
 }
-  
-  
+
+
     return new Move(row, col);
   }
   showPossibleMove(moves: Move[]): void {

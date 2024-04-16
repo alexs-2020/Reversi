@@ -1,40 +1,62 @@
+import express from 'express';
+import http from 'http';
+import { Server as SocketIoServer } from 'socket.io';
 import Game from "./model/game";
 import ConsoleGameView from "./view/console_game_view";
 import GameController from "./controller/game_controller";
+import readlineSync from 'readline-sync';
+import WebGameView from "./view/web_game_view";
+export default class GameManager {
+    private type: 'web' | 'console';
+    private size: number = 8;
+    private game!: Game;
+    private gameView!: WebGameView | ConsoleGameView;
+    private gameController!: GameController;
+    private socket: SocketIoServer;
 
-import * as readlineSync from 'readline-sync';
+    constructor(type: 'web' | 'console', port: string) {
+        const app = express();
+        const server = http.createServer(app);
+        const io = new SocketIoServer(server);
+        this.socket = io;
 
-// Function to get user input for board size 
-function getBoardSizeFromUser(): number {
-    const sizeInput: string = readlineSync.question('Enter the size of the board (Even number; Recommended range: 4-12 (recommendation = 8)): ');
-    const size: number = parseInt(sizeInput, 10);
-    const isOdd:number = size%2 
-    if (isNaN(size) ||isOdd || size <= 2 || size >= 13){
-      console.log('Invalid input. Please enter a valid number.');
-      return getBoardSizeFromUser(); // Retry input
+        // Start the server
+        const PORT = port;
+        server.listen(PORT, () => {
+            console.log(`Server running on port ${PORT}`);
+        });
+
+        this.type = type;
+        this.initializeGame();
     }
-  
-    return size;
-  }
-  // default board size 
-  let boardSize = 8;
-  // Get the board size from the user
-  const sizeInput: string = readlineSync.question('Do you want to enter a board size No = 0 and Yes = 1? ');
-  const wantsToEnterSize: number = parseInt(sizeInput, 10);
-  if (wantsToEnterSize){
-    boardSize= getBoardSizeFromUser()
-  }
 
+    private initializeGame(): void {
+        if (this.type === 'web') {
+            this.getWebBoardSizeFromUser();
+            this.game = new Game(this.size);
+            this.gameView = new WebGameView(this.game.board, this.socket); // Assuming you have a WebGameView class for the web interface
+            this.gameController = new GameController(this.game, this.gameView);
+        } else if (this.type === 'console') {
+            this.getConsoleBoardSizeFromUser();
+            this.game = new Game(this.size);
+            this.gameView = new ConsoleGameView(this.game.board);
+            this.gameController = new GameController(this.game, this.gameView);
+        }
 
+        this.gameController.startGame();
+    }
 
+    private getConsoleBoardSizeFromUser(): void {
+        // Your implementation here
+    }
 
+    private getWebBoardSizeFromUser(): void {
+        this.socket.on('setBoardSize', (size: number) => {
+            console.log(`Received boardSize ${size}`)
+            this.size = size;
+        });
+    }
+}
 
-// Create instances of Game and ConsoleGameView
-const game = new Game(boardSize);
-const consoleGameView = new ConsoleGameView(game.board);
-
-// Create an instance of GameController
-const gameController = new GameController(game, consoleGameView);
-
-// Run the game
-gameController.startGame();
+new GameManager('web', '1337'); // For web client
+// new GameManager('console', '1337'); // For console client

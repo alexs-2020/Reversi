@@ -5,6 +5,8 @@ import GameState from './controller/game_state'
 import Move from './model/move' // Import the Move class
 import ConsoleGameView from './view/console_game_view'
 import Game from './model/game'
+import { io, Socket } from 'socket.io-client';
+
 function convertBoardStringToArray(boardString: string) {
   const lines = boardString.split('\n')
   const boardArray = []
@@ -61,7 +63,8 @@ const GameSettingsContext = createContext<GameSettingsContextType | undefined>(
 )
 
 type GameSettingsProviderProps = {
-  children: ReactNode
+  children: ReactNode;
+  socket:Socket
 }
 
 export const useGameSettings = () => {
@@ -76,6 +79,7 @@ export const useGameSettings = () => {
 
 export const GameSettingsProvider: React.FC<GameSettingsProviderProps> = ({
   children,
+    socket
 }) => {
   const [startingPieceColor, setStartingPieceColor] =
     useState<string>('#416072')
