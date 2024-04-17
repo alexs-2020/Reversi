@@ -10,16 +10,22 @@
     "enum": "^3.0.4",
     "enum-values": "^1.2.1",
     "express": "^4.19.2",
+    "http": "^0.0.1-security",
+    "https": "^1.0.0",
     "mysql": "^2.18.1",
+    "mysql2": "^3.9.4",
+    "nodemon": "^3.1.0",
     "prettier": "^3.2.4",
     "readline-sync": "^1.4.10",
     "socket.io": "^4.7.5",
+    "swagger-ui-dist": "^5.15.2",
+    "swagger-ui-express": "^5.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "scripts": {
     "prettier": "prettier --write \"src/**/*.+(ts|tsx|js|jsx)\"",
-    "start": "ts-node src/app.ts"
+    "start": "nodemon index.js"
   },
   "compilerOptions": {
     "target": "ESNext",

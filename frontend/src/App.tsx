@@ -15,8 +15,8 @@ function App() {
       <Routes>
         {/* <Home /> */}
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
+        {/*<Route path="/login" element={<LoginPage />} />*/}
+        {/*<Route path="/signup" element={<SignupPage />} />*/}
       </Routes>
     </GameSettingsProvider>
   )

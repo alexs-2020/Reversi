@@ -1,29 +1,40 @@
+const express = require("express");
+const cors = require('cors');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const mysql = require('mysql2');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+const userQueryBuilder = require('./userQueryBuilder');
 
 
 
-const express = require("express");
-const mysql = require("mysql")
+
+
 
 const PORT = process.env.PORT || 3001;
-const cors = require('cors');
+
+
 // app.use(cors());
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
 //create connection
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: ''
+  password: '',
+  port:3306
 })
 
 //connect to MySql
 db.connect(err => {
     if(err){
+       console.error('Error connecting: ' + err.stack);
         throw err
     }
     console.log('connected to MySql')
@@ -96,6 +107,15 @@ function createTable() {
     })
 }
 
+app.get('/users', (req, res) => {
+  db.query('SELECT * FROM users', (err, results) => {
+    if (err) {
+      res.status(500).send('Error retrieving users from database');
+    } else {
+      res.json(results);
+    }
+  });
+});
 
 app.post('/signup', (req, res) => {
   const { username, password } = req.body;
@@ -112,25 +132,28 @@ app.post('/signup', (req, res) => {
     if (err) {
       return res.status(500).send('Error checking username availability');
     }
-    if (result.length > 0) {
-      // Username already exists
+    if (result[0]['COUNT(*)'] > 0) { // Assuming COUNT(*) is returned
       return res.status(409).json({ message: "Username is already taken" });
-    } else {
+    }
+     else {
       // Username is available, proceed with hashing password
       bcrypt.hash(password, saltRounds, (err, hash) => {
         if (err) {
           return res.status(500).send('Error hashing password');
         }
-        // create user
-        // userQueryBuilder.setUsername(username).setPassword(hash).signUp()
-        userQueryBuilder.createQuery(username, hash)
-        const newUser = userQueryBuilder.signUp().build();
+        const userQueryBuilder = new UserQueryBuilder();
+        const newUser = userQueryBuilder.setUsername(username)
+                                       .setPassword(hash)
+                                       .signUp()
+                                       .build();
+
         userQueryBuilder.reset();
-        db.query(newUser.query, newUser.fields, (err, result) => {
-          if (err) {
-            return res.status(500).send('Error registering user');
-          }
-          res.send('User registered successfully');
+         db.query(newUser.query, newUser.fields, (err, result) => {
+           userQueryBuilder.reset();
+           if (err) {
+             return res.status(500).send('Error registering user');
+           }
+           res.send('User registered successfully');
         });
       });
     }
@@ -146,7 +169,7 @@ app.post('/login', (req, res) => {
   }
 
   // Check if the user exists
-  const sql = 'SELECT * FROM users WHERE username = ?';
+  const sql = ' SELECT * FROM users WHERE username = ?';
   db.query(sql, [username], (err, users) => {
     if (err) {
       return res.status(500).send('Error fetching user');
@@ -191,27 +214,26 @@ app.put("/updatescore", (req, res) => {
 
 
 
-const http = require('http')
-const socketio = require('socket.io')
-
-const server = http.createServer(app)
-const io = socketio(server)
-
+const { createServer } = require('http');
+const { Server } = require('socket.io');
+const httpServer = createServer(app);
+const io = new Server(httpServer);
 
 
 
-const gameLogic = require('./gameLogic') //WHATEVER IT IS
+const gameLogic = require('./gameLogic')
+const {UserQueryBuilder} = require("./routes/DbBuilder"); //WHATEVER IT IS
 
 // get the gameID encoded in the URL. 
 // check to see if that gameID matches with all the games currently in session. 
 // join the existing game session. 
-// create a new session.  
+// create a new session.
 // run when client connects
+const games = {};
 
 io.on('connection', client => {
   console.log('A client connected:', client.id);
-  
-  // Assuming you are sending 'gameID' from client on connection
+
   client.on('joinGame', (gameID) => {
     if (games[gameID]) {
       console.log('Joining existing game:', gameID);
@@ -219,10 +241,10 @@ io.on('connection', client => {
       // Optionally send some game state to client or notify others
     } else {
       console.log('Creating new game with ID:', gameID);
-      games[gameID] = { /* some game state */ };
+      games[gameID] = { /* some initial game state */ };
       client.join(gameID);
       // Initialize new game logic here
-      gameLogic.initializeGame(io, client, gameID);
+      // gameLogic.initializeGame(io, client, gameID);
     }
   });
 });
@@ -285,13 +307,6 @@ io.on('connection', client => {
 //     }
 //   });
 // });
-
-
-
-
-
-
-
 
 
 

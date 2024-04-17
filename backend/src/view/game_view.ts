@@ -8,15 +8,16 @@ abstract class GameView {
   constructor(boardView: BoardView) {
     this.boardView = boardView;
   }
-  abstract showCurrentPlayer(player:Player):void
-  abstract showPlayerScores(player1: Player, player2:Player): void;
+  abstract showCurrentPlayer(player: Player): void;
+  abstract showPlayerScores(player1: Player, player2: Player): void;
 
-  abstract getMove(player:Player): void;
+  abstract getMove(player: Player): void;
 
-  abstract  showPossibleMove(moves: Move[]): void;
+  abstract showPossibleMove(moves: Move[]): void;
 
   abstract showWinner(player: any): void;
-  abstract showIllegalMove(move:Move): void;
+  abstract showIllegalMove(move: Move): void;
+  abstract showAIplays(): void;
 
   displayBoard(): void {
     this.boardView.display();

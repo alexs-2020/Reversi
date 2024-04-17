@@ -14,8 +14,14 @@ class Player {
     */
     this.score += newScore;
   }
-  getScore():number{
-    return this.score
+  changeScore(newScore: number): void {
+    /*
+    Method to update score
+    */
+    this.score = newScore;
+  }
+  getScore(): number {
+    return this.score;
   }
 }
 
