@@ -25,7 +25,8 @@
   },
   "scripts": {
     "prettier": "prettier --write \"src/**/*.+(ts|tsx|js|jsx)\"",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "start-app": "ts-node src/app.ts"
   },
   "compilerOptions": {
     "target": "ESNext",
