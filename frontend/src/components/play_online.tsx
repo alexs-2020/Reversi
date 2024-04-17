@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Login from './login'
+import Login from '../components/login'
 import { useGameSettings } from '../GameSettingsProvider'
 const PlayOnline : React.FC = () => {
     const { setBoardSize, setShowResp, showResp,game } = useGameSettings()
@@ -9,7 +9,7 @@ const PlayOnline : React.FC = () => {
       
     }
    return(
-    <div onClick={handleNavigateHome} className="overlaySetting">
+    <div className="overlaySetting">
       <div className="overlayBox">
         <div className="overlayInside">
             <h3> Play Online</h3>
