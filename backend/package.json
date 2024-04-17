@@ -11,6 +11,7 @@
     "enum-values": "^1.2.1",
     "express": "^4.19.2",
     "mysql": "^2.18.1",
+    "mysql2": "^3.9.4",
     "prettier": "^3.2.4",
     "readline-sync": "^1.4.10",
     "socket.io": "^4.7.5",
@@ -19,7 +20,7 @@
   },
   "scripts": {
     "prettier": "prettier --write \"src/**/*.+(ts|tsx|js|jsx)\"",
-    "start": "ts-node src/app.ts"
+    "start": "ts-node index.js"
   },
   "compilerOptions": {
     "target": "ESNext",

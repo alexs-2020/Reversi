@@ -32,6 +32,7 @@ const initializeGame = (sio, socket) => {
     // User joins gameRoom after going to a URL with '/game/:gameId' 
     gameSocket.on("playerJoinGame", playerJoinsGame)
 
+
     gameSocket.on('request username', requestUserName)
 
     gameSocket.on('recieved userName', recievedUserName)

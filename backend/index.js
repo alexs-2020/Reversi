@@ -4,7 +4,8 @@ const saltRounds = 10;
 
 
 const express = require("express");
-const mysql = require("mysql")
+const mysql = require('mysql2');
+
 
 const PORT = process.env.PORT || 3001;
 const cors = require('cors');
@@ -24,6 +25,7 @@ const db = mysql.createConnection({
 //connect to MySql
 db.connect(err => {
     if(err){
+       console.error('Error connecting: ' + err.stack);
         throw err
     }
     console.log('connected to MySql')
@@ -205,7 +207,7 @@ const gameLogic = require('./gameLogic') //WHATEVER IT IS
 // get the gameID encoded in the URL. 
 // check to see if that gameID matches with all the games currently in session. 
 // join the existing game session. 
-// create a new session.  
+// create a new session.
 // run when client connects
 
 io.on('connection', client => {
@@ -285,13 +287,6 @@ io.on('connection', client => {
 //     }
 //   });
 // });
-
-
-
-
-
-
-
 
 
 
