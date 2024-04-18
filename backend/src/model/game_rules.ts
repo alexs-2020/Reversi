@@ -131,23 +131,18 @@ class GameRules {
   makeMove(move: Move, curr_player: Player, other_player: Player): void {
     this.board.board[move.row][move.column] = curr_player.symbol;
     if (this.validMove.positions) {
-
       this.flipPieces(
         this.validMove.positions,
         this.validMove.valid_direction,
         curr_player,
         other_player,
       );
-
-
     }
     curr_player.updateScore(1);
   }
 
   //check if player has any valid playable moves
-  getValidPlacements(
-    player: Player,
-  ): {
+  getValidPlacements(player: Player): {
     move: Move;
     valid_direction: number;
     positions: { row: number; col: number }[];

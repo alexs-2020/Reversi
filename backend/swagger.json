@@ -94,7 +94,7 @@
     }
   }
 },
-    "/updatescore": {
+    "/updateScore": {
   "put": {
     "tags": ["user"],
     "summary": "Update user score",

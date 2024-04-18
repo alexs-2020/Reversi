@@ -6,8 +6,6 @@
 // const saltRounds = 10;
 // // const { isAuthenticated } = require('./../middleware/jwt.middleware.js'); // <== IMPORT
 
-
-
 // const API_URL = "http://localhost:3000";
 
 // router.post('/signup', (req, res) => {
@@ -43,7 +41,6 @@
 //   });
 // });
 
-
 // app.post('/login', (req, res) => {
 //   const { username, password } = req.body;
 //   if (!username || !password) {
@@ -78,22 +75,7 @@
 //   });
 // });
 
-
-
 // module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // // const router = require("express").Router();
 // // const User = require("../models/User.model")
@@ -103,16 +85,16 @@
 // // //     let id = req.params.id
 // // //     console.log(id)
 // // //     User.findByIdAndUpdate(id, {$push: {uploads: url }})
-// // //     .then(user =>{ 
+// // //     .then(user =>{
 // // //         res.json(user)
 // // //     })
 // // //   })
-  
+
 // // // router.get('/users/:id', (req, res)=>{
 // // //     let id = req.params.id
 // // //     console.log(id)
 // // //     User.findById(id)
-// // //     .then(user =>{ 
+// // //     .then(user =>{
 // // //         res.json(user)
 // // //     })
 // // //   })

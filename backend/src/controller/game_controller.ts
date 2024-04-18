@@ -24,13 +24,13 @@ class GameController {
    */
   constructor(model: Game, view: ConsoleGameView) {
     this.model = model;
-    this.model.setUp()
+    this.model.setUp();
     this.view = view;
     this.mode = model.getGameMode();
     console.log(`get game mode returning ${this.mode}`);
   }
   playAIMove(
-      valid_placement: {
+    valid_placement: {
       move: Move;
       valid_direction: number;
       positions: { row: number; col: number }[];
@@ -38,23 +38,23 @@ class GameController {
   ): void {
     this.view.showAIplays();
 
-    const ai_score= this.model.AIPlayer.getScore()
-     const human_score= this.model.player1 == this.model.AIPlayer
+    const ai_score = this.model.AIPlayer.getScore();
+    const human_score =
+      this.model.player1 == this.model.AIPlayer
         ? this.model.player2.getScore()
         : this.model.player1.getScore();
 
-
-    const best_move = this.AI.determineBestMove()
+    const best_move = this.AI.determineBestMove();
 
     this.model.AIPlayer.changeScore(ai_score);
     this.model.player1 == this.model.AIPlayer
       ? this.model.player2.changeScore(human_score)
       : this.model.player1.changeScore(human_score);
     while (!this.model.isLegalMove(best_move, valid_placement)) {
-       this.AI.determineBestMove()
+      this.AI.determineBestMove();
     }
 
-     this.model.makeMove(best_move);
+    this.model.makeMove(best_move);
   }
   playHuman(
     valid_placement: {
@@ -112,8 +112,7 @@ class GameController {
           this.playHuman(validPlacements);
         }
         this.view.displayBoard();
-        console.log('new game\n\n')
-
+        console.log("new game\n\n");
 
         // Check if the game is over
         if (this.model.isGameOver()) {
