@@ -11,8 +11,7 @@ abstract class GameView {
   abstract showCurrentPlayer(player: Player): void;
   abstract showPlayerScores(player1: Player, player2: Player): void;
 
-  abstract getMove(player: Player,  row?:number, col?:number): void;
-
+  abstract getMove(player: Player, row?: number, col?: number): void;
 
   abstract showPossibleMove(moves: Move[]): void;
 

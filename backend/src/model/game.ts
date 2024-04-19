@@ -33,10 +33,10 @@ class Game {
     this.curr_player = this.player1;
     this.rules = new GameRules(this.board);
   }
-  setUp(){
+  setUp() {
     this.setGameMode();
     this.AIDifficulty = this.getAIdifficulty();
-}
+  }
 
   // Check if a move is legal based on the current game state
   isLegalMove(
@@ -134,7 +134,7 @@ class Game {
 
   // Method to clone the current instance of the Game
   // Clone the game
-    clone(): Game {
+  clone(): Game {
     const clone = new Game(this.board.size);
     clone.curr_player = this.curr_player;
     clone.player1 = this.player1;
