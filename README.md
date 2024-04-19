@@ -37,15 +37,24 @@ To start working with the project, follow these steps:
   ```
    cd reversi-game/frontend  
    ```
-2. **Running the code :**
-   ```
-   yarn start
-   ```
 ## backend
 1. ** navigating to the directory**
   ```
    cd reversi-game/backend 
   ```
+2. **Running the frontend code :**
+   ```
+(cd reversi-game/frontend  && yarn start)
+
+   ```
+2. **Running the backend code :**
+   ```
+(cd reversi-game/backend  && yarn start)
+
+   ```
+You have run both backend and frontend at the same 
+
+
 2. **Running the code :**
    ```
    node index.js
