@@ -42,7 +42,7 @@ class ConsoleGameView extends GameView {
     );
   }
 
-  getMove(player: Player): Move {
+  async getMove(player: Player): Promise<Move> {
     const moveInput: string =
       readlineSync.question(
         `\n \nPlayer ${symbolToStr[player.symbol]}, Enter your move (row,col): `,

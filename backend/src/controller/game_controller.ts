@@ -56,17 +56,19 @@ class GameController {
 
     this.model.makeMove(best_move);
   }
-  playHuman(
+  async playHuman(
     valid_placement: {
       move: Move;
       valid_direction: number;
       positions: { row: number; col: number }[];
     }[],
   ) {
-    let move: Move = this.view.getMove(this.model.curr_player);
+    let move: Move = await Promise.resolve(
+      this.view.getMove(this.model.curr_player),
+    );
     while (!this.model.isLegalMove(move, valid_placement)) {
       this.view.showIllegalMove(move);
-      move = this.view.getMove(this.model.curr_player);
+      move = await Promise.resolve(this.view.getMove(this.model.curr_player));
     }
 
     // Make the validated move, display the updated board

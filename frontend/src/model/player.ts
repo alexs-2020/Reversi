@@ -1,13 +1,15 @@
 import PlayerSymbol from './player_symbol'
 class Player {
-  symbol: PlayerSymbol
-  private score: number
-  color?: string
+  symbol: PlayerSymbol;
+  private score: number;
+  username: string | undefined;
+  socketId: any;
 
-  constructor(symbol: PlayerSymbol, color?: string) {
-    this.symbol = symbol
-    this.score = 2
-    this.color = color
+  constructor(symbol: PlayerSymbol, username?: string, socketId?: any) {
+    this.symbol = symbol;
+    this.score = 2;
+    this.username = username;
+    this.socketId = socketId;
   }
 
   updateScore(newScore: number): void {

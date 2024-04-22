@@ -61,6 +61,7 @@ export const ImageButton: React.FC<ImageButtonProps> = ({
 }
 
 function Home() {
+
   const { currboardSize } = useGameSettings()
   const darkcolor = '#416072'
   const lightcolor = '#5292CD'

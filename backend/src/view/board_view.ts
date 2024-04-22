@@ -7,7 +7,7 @@ abstract class BoardView {
     this.board = board;
   }
 
-  abstract display(): void;
+  abstract display():[string,string];
 }
 
 export default BoardView;

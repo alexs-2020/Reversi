@@ -17,7 +17,6 @@ class UserQueryBuilder {
     return this;
   }
 
-
   signUp() {
     // Assuming username and password are set as fields
     this.query = "INSERT INTO users (username, password) VALUES (?, ?)";

@@ -3,80 +3,94 @@ import WebBoardView from "./web_board_view";
 import Move from "../model/move";
 import Player from "../model/player";
 import Board from "../model/board";
+import { Server, Socket } from "socket.io";
 import PlayerSymbol, { symbolToStr } from "../model/player_symbol";
+
+export function logAndReturn(
+  functionName: string,
+  message: any,
+): [string, any] {
+  return [functionName, message]; // Returns a tuple (array with two elements)
+}
 
 class WebGameView extends GameView {
   constructor(board: Board) {
     super(new WebBoardView(board));
   }
 
-  private logAndReturn(
-    functionName: string,
-    message: string,
-  ): [string, string] {
-    console.log(message);
-    return [functionName, message];
-  }
-
-  showPlayerScores(player1: Player, player2: Player): [string, string[]] {
-    return [
+  showPlayerScores(player1: Player, player2: Player): [string, string] {
+    return logAndReturn(
       "showPlayerScores",
-      [
-        this.logAndReturn(
-          "showPlayerScores",
-          `\nPlayer ${symbolToStr[player1.symbol]} current score: ${player1.getScore()}`,
-        )[1],
-        this.logAndReturn(
-          "showPlayerScores",
-          `Player ${symbolToStr[player2.symbol]} current score: ${player2.getScore()}`,
-        )[1],
-      ],
-    ];
-  }
-
-  showCurrentPlayer(player: Player): [string, string] {
-    return this.logAndReturn(
-      "showCurrentPlayer",
-      `current player: Player ${symbolToStr[player.symbol]}`,
+      `\nPlayer ${symbolToStr[player1.symbol]} current score: ${player1.getScore()} \n 
+          Player ${symbolToStr[player2.symbol]} current score: ${player2.getScore()}`,
     );
   }
 
-  getMove(player: Player, row: number, col: number): Move {
-    return new Move(row, col);
+  showCurrentPlayer(player: Player): [string, string] {
+    return logAndReturn(
+      "showCurrentPlayer",
+      `current player: Player ${player.username}`,
+    );
   }
-  showPossibleMove(moves: Move[]): [string, string[]] {
-    return [
-      "showPossibleMove",
-      moves.map(
-        (move, index) =>
-          this.logAndReturn(
-            "showPossibleMove",
-            `Move ${index + 1}: Row ${move.row + 1}, Column ${move.column + 1}`,
-          )[1],
-      ),
-    ];
+  getMove(player:Player, io:Server): Promise<Move> {
+    const socketId = player.socketId;
+    return new Promise((resolve, reject) => {
+      let moveReceived = false;
+
+      // Set a timeout for 30 seconds to wait for the player's move
+      const timeout = setTimeout(() => {
+        if (!moveReceived) {
+          // Inform the player that the move was not received in time
+          io.to(socketId).emit("moveTimeout", "No move received within 30 seconds");
+          reject(new Error("No move received within 30 seconds"));
+        }
+      }, 30000); // Corrected to 30 seconds
+
+      if (!io) {
+        reject(new Error("Server not provided"));
+        return;
+      }
+
+      // Register a listener for the player's move
+      io.sockets.sockets.get(socketId)?.once(`playerMove`, (row, col) => {
+        if (!moveReceived) {
+          clearTimeout(timeout);
+          moveReceived = true;
+          const move = new Move(row, col);
+          resolve(move);
+        }
+      });
+    });
+  }
+
+  showPossibleMove(moves: Move[]): [string, string] {
+    let message = "\nPossible Moves:";
+    moves.forEach((move, index) => {
+      message += `\nMove ${index + 1}: Row ${move.row + 1}, Column ${move.column + 1}`;
+    });
+    return logAndReturn("showPossibleMove", message);
   }
 
   showWinner(player: Player): [string, string] {
-    return this.logAndReturn(
+    return logAndReturn(
       "showWinner",
       `Player ${symbolToStr[player.symbol]} is the winner!`,
     );
   }
 
   showIllegalMove(move: Move): [string, string] {
-    return this.logAndReturn(
+    return logAndReturn(
       "showIllegalMove",
       `Illegal Move: Row ${move.row + 1}, Column ${move.column + 1}`,
     );
   }
 
   showAIplays(): [string, string] {
-    return this.logAndReturn("showAIplays", "AI plays");
+    return logAndReturn("showAIplays", "AI plays");
   }
 
   showNoMovesLeft(): [string, string] {
-    return this.logAndReturn("showNoMovesLeft", "There are no moves left");
+    return logAndReturn("showNoMovesLeft", "There are no moves left");
   }
 }
 

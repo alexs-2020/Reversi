@@ -1,22 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import { socket } from "../App";
+import {socket} from "../App";
 import {useNavigate} from "react-router-dom";
+import Player from "../model/player";
+import PlayerSymbol from "../model/player_symbol";
+
+import HowtoPlay from "./how_to_play";
+import {useGameSettings} from "../GameSettingsProvider";
+
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:3001', // Centralized base URL
   headers: {
     'Content-Type': 'application/json'
   }
 });
+
 const Login= () => {
   const [isLogin, setIsLogin] = useState(true);  // Toggle between login and register
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-const [playersOnline, setPlayersOnline] = useState<string[]>([]);
-  const [seePlayersOnline, setSeePlayersOnline]=useState(false)
- const navigate = useNavigate();
+  const [playersOnline, setPlayersOnline] = useState<string[]>([]);
+  const [seePlayersOnline, setSeePlayersOnline]=useState(false);
+  const [showHowToPlay, setShowHowtoPlay]=useState(false)
+    const { currboardSize, currMove, setShowResp, showResp, setPlay, play } =
+    useGameSettings()
 
 
 
@@ -24,6 +33,12 @@ const [playersOnline, setPlayersOnline] = useState<string[]>([]);
 
   const GoHome = () => {
     window.location.reload();
+  };
+  const startGame=(player1:Player, player2:Player)=>{
+      socket.emit('startGame',player2.username)
+      setSeePlayersOnline(false);
+      setPlay(true);
+
   };
 const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -48,6 +63,7 @@ const handleSubmit = async (event: any) => {
     // Function to handle new player list data
     const handleNewPlayerList = (players: React.SetStateAction<string[]>) => {
       setPlayersOnline(players);
+
     };
 
     // Register the event listener
@@ -60,7 +76,7 @@ const handleSubmit = async (event: any) => {
   }, [seePlayersOnline]);
    const [playColor, setColor] = useState('black');
    const[opponent, setOpponent] = useState('black');
-  const [selectedPlayer, setSelectedPlayer] = useState(null);
+  const [selectedPlayer, setSelectedPlayer] = useState('');
 
     // Function to handle player selection
     const togglePlayerColor = (player: string | React.SetStateAction<null>) => {
@@ -71,32 +87,26 @@ const handleSubmit = async (event: any) => {
             console.log("You cannot select yourself as the opponent.");
         }
     };
-
- return (
-  <div>
-    {seePlayersOnline ? (
-      <div>
-        <h3>Players currently online: </h3>
-        <div>
-          <ol >
-            {playersOnline.map((player) => (
-               <li key={player} onClick={() => togglePlayerColor(player)}
-                    style={{
-                        color: selectedPlayer === player ? 'blue' : 'black',
-                        cursor: 'pointer'
-                    }}>
-
-                        {player}
-                </li>
-            ))}
-          </ol>
-          {playersOnline.length > 1 ? (
-
-            <div style={{display:"flex", alignItems:'center', justifyContent:'space-between'}}>
-              <button>Play</button>
-              <button onClick={GoHome}>Exit</button>
-            </div>
-          ) : (
+    const ShowSeePlayerOnline = () => (
+    <div>
+      <h3>Players currently online:</h3>
+      <ol>
+        {playersOnline.map((player) => (
+          <li key={player} onClick={() => togglePlayerColor(player)}
+              style={{
+                  color: selectedPlayer === player ? 'blue' : 'black',
+                  cursor: 'pointer'
+              }}>
+              {player}
+          </li>
+        ))}
+      </ol>
+      {playersOnline.length > 1 ? (
+        <div style={{ display: "flex", alignItems: 'center', justifyContent: 'space-between' }}>
+          <button onClick={() => startGame(new Player(PlayerSymbol.Black,username), new Player(PlayerSymbol.White, selectedPlayer))}>Play</button>
+          <button onClick={GoHome}>Exit</button>
+        </div>
+      ):(
             <div>
               <p>
                 There are no players currently online. Would you like to play
@@ -105,10 +115,15 @@ const handleSubmit = async (event: any) => {
               </p>
               <button onClick={GoHome}>Yes</button>
             </div>
-          )}
-        </div>
-      </div>
-    ) : (
+          )
+
+      }
+    </div>
+  );
+
+ return (
+  <div>
+    {seePlayersOnline? ShowSeePlayerOnline() : (
       <div className="login-container">
         <form
           style={{ display: "flex", flexDirection: "column", gap: "20px" }}

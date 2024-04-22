@@ -26,9 +26,9 @@ class Game {
   AIPlayer!: Player;
 
   // Constructor initializes the game with players, board, and rules
-  constructor(size: number) {
-    this.player1 = new Player(PlayerSymbol.Black);
-    this.player2 = new Player(PlayerSymbol.White);
+  constructor(size: number, player1Name?: string, player2Name?: string,play1Socket?: any, player2Socket?: any) {
+    this.player1 = new Player(PlayerSymbol.Black, player1Name,play1Socket);
+    this.player2 = new Player(PlayerSymbol.White, player2Name, player2Socket);
     this.board = new Board(size);
     this.curr_player = this.player1;
     this.rules = new GameRules(this.board);

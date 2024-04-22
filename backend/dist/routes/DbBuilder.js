@@ -3,7 +3,9 @@
 class QueryBuilder {
   constructor() {
     if (new.target === QueryBuilder) {
-      throw new Error("QueryBuilder is an abstract class and cannot be instantiated directly.");
+      throw new Error(
+        "QueryBuilder is an abstract class and cannot be instantiated directly.",
+      );
     }
     this.query = "";
     this.fields = [];
@@ -34,7 +36,8 @@ class QueryBuilder {
 class UserQueryBuilder extends QueryBuilder {
   constructor() {
     super();
-    this.query = "CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT NOT NULL PRIMARY KEY, username VARCHAR(100), password VARCHAR(100), wins INT, losses INT, ratio FLOAT)";
+    this.query =
+      "CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT NOT NULL PRIMARY KEY, username VARCHAR(100), password VARCHAR(100), wins INT, losses INT, ratio FLOAT)";
   }
 
   reset() {
@@ -72,7 +75,8 @@ class UserQueryBuilder extends QueryBuilder {
 class BoardQueryBuilder extends QueryBuilder {
   constructor() {
     super();
-    this.query = "CREATE TABLE IF NOT EXISTS board (id INT AUTO_INCREMENT PRIMARY KEY, size INT NOT NULL, current_turn VARCHAR(100), game_state VARCHAR(100))";
+    this.query =
+      "CREATE TABLE IF NOT EXISTS board (id INT AUTO_INCREMENT PRIMARY KEY, size INT NOT NULL, current_turn VARCHAR(100), game_state VARCHAR(100))";
   }
 
   reset() {
@@ -81,7 +85,11 @@ class BoardQueryBuilder extends QueryBuilder {
 
   createQuery(boardAttributes) {
     this.query = `INSERT INTO board (size, current_turn, game_state) VALUES (?, ?, ?)`;
-    this.fields = [boardAttributes.size, boardAttributes.currentTurn, boardAttributes.gameState];
+    this.fields = [
+      boardAttributes.size,
+      boardAttributes.currentTurn,
+      boardAttributes.gameState,
+    ];
     return this;
   }
 

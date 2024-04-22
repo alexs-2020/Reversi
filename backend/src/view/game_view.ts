@@ -1,5 +1,6 @@
 import Move from "../model/move";
 import Player from "../model/player";
+import { Server } from "socket.io";
 import BoardView from "./board_view";
 
 abstract class GameView {
@@ -11,7 +12,7 @@ abstract class GameView {
   abstract showCurrentPlayer(player: Player): void;
   abstract showPlayerScores(player1: Player, player2: Player): void;
 
-  abstract getMove(player: Player, row?: number, col?: number): void;
+  abstract getMove(player: Player, io?: Server): Promise<Move>;
 
   abstract showPossibleMove(moves: Move[]): void;
 
@@ -19,8 +20,9 @@ abstract class GameView {
   abstract showIllegalMove(move: Move): void;
   abstract showAIplays(): void;
 
-  displayBoard(): void {
-    this.boardView.display();
+  displayBoard():  [string,string] {
+    return this.boardView.display();
+
   }
 }
 

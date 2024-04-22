@@ -25,15 +25,16 @@
   },
   "scripts": {
     "prettier": "prettier --write \"{.,src}/**/*.+(ts|tsx|js|jsx)\"",
-    "start": "nodemon dist/server.js",
+    "build": "tsc",
+    "start": "yarn run build && nodemon dist/server.js",
     "start-app": "ts-node src/app.ts"
   },
   "compilerOptions": {
     "target": "ESNext",
     "module": "commonjs",
-    "outDir": "./dist",
     "rootDir": "./src",
-    "strict": true
+    "strict": true,
+    "outDir": "./dist"
   },
   "include": [
     "src/**/*.ts"

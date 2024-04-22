@@ -7,7 +7,7 @@ class ConsoleBoardView extends BoardView {
     super(board);
   }
 
-  display(): void {
+  display(): [string,string] {
     // Print the board content and append row numbers at the end
     this.board.board.forEach((row, rowIndex) => {
       // Map each symbol in the row to its string representation
@@ -23,7 +23,9 @@ class ConsoleBoardView extends BoardView {
 
     // Print the column numbers, correctly aligned under the board's columns
     console.log(footer); // Removed the single space at the beginning
+    return['console','done']
   }
+
 }
 
 export default ConsoleBoardView;
